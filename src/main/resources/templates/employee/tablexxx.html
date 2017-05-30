@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/header :: main">
+    这部分是html头
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu" th:include="/common/aside-menu :: admin">
+                    这部分内容有 /common/side-menu 中 th:fragment="admin" 部分 替换
+                </ul>
+
+            </div>
+        </nav>
+
+
+        <div id="page-wrapper" class="gray-bg">
+            <!-- 导航条 -->
+            <div class="row border-bottom" th:include="/common/top-menu :: main">
+                这部分内容有 /common/top-menu 中 th:fragment="main" 部分 替换
+            </div>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2></h2>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a>xx管理</a></li>
+                        <li class="active"><strong>table xx</strong></li>
+                    </ol>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+
+            <!-- 主要内容部分 -->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row"><div class="col-lg-12"><div class="ibox">
+
+                    <div class="ibox-content">
+
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${data}">
+                                <td th:text="${item.adname}"></td>
+                                <td th:text="${item.idcard}"></td>
+                                <td th:text="${item.adcellphone}"></td>
+                                <td th:text="${item.adage}"></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div></div></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div th:include="/common/footer :: js">
+        这部分是引入js代码
+    </div>
+
+    <!-- thymeleaf js部分代码比较男鞋下面的注释不要去掉 -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        var username = "填写js内容";
+        //修改提醒为中文
+        jQuery.extend(jQuery.validator.messages, {
+            required: "这是必填字段",
+            remote: "请修正此字段",
+            email: "请输入有效的电子邮件地址",
+            url: "请输入有效的网址",
+            date: "请输入有效的日期",
+            dateISO: "请输入有效的日期 (YYYY-MM-DD)",
+            number: "请输入有效的数字",
+            digits: "只能输入数字",
+            creditcard: "请输入有效的信用卡号码",
+            equalTo: "你的输入不相同",
+            extension: "请输入有效的后缀",
+            maxlength: $.validator.format("最多可以输入 {0} 个字符"),
+            minlength: $.validator.format("最少要输入 {0} 个字符"),
+            rangelength: $.validator.format("请输入长度在 {0} 到 {1} 之间的字符串"),
+            range: $.validator.format("请输入范围在 {0} 到 {1} 之间的数值"),
+            max: $.validator.format("请输入不大于 {0} 的数值"),
+            min: $.validator.format("请输入不小于 {0} 的数值")
+        });
+        //校验样式更改
+        $("#from-id").validate();
+
+        /*]]>*/
+    </script>
+
+</body>
+</html>

@@ -6,8 +6,13 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import restaurant.management.model.Administrator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhe.jiang on 2017/5/22.
@@ -59,5 +64,14 @@ public class IndexController {
     @RequestMapping(value = "/addxxx", method = RequestMethod.GET)
     public String employeeAddxxx() {
         return "employee/addxxx";
+    }
+
+    @RequestMapping(value = "/tablexxx", method = RequestMethod.GET)
+    public String employeeTablexxx(Model model) {
+        List<Administrator> administrators = new ArrayList<>();
+        administrators.add(new Administrator("aa","11","13757182647",22,true,""));
+        administrators.add(new Administrator("bb","11","13757182647",11,true,""));
+        model.addAttribute("data",administrators);
+        return "employee/tablexxx";
     }
 }

@@ -1,7 +1,9 @@
 package restaurant.management;
 
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.realm.jdbc.JdbcRealm;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -49,10 +51,21 @@ public class ShiroConfiguration {
         shiroFilter.setSuccessUrl("/index");
         shiroFilter.setUnauthorizedUrl("/forbidden");
         Map<String, String> filterChainDefinitionMapping = new LinkedHashMap<>();
+
         filterChainDefinitionMapping.put("/login", "anon");
-        filterChainDefinitionMapping.put("/admin", "authc");
-        filterChainDefinitionMapping.put("/employee", "authc");
-        filterChainDefinitionMapping.put("/customer", "authc");
+        filterChainDefinitionMapping.put("/css/**", "anon");
+        filterChainDefinitionMapping.put("/example/**", "anon");
+        filterChainDefinitionMapping.put("/font-awesome/**", "anon");
+        filterChainDefinitionMapping.put("/fonts/**", "anon");
+        filterChainDefinitionMapping.put("/img/**", "anon");
+        filterChainDefinitionMapping.put("/js/**", "anon");
+        filterChainDefinitionMapping.put("/static/**", "anon");
+
+//        filterChainDefinitionMapping.put("/admin", "authc");
+//        filterChainDefinitionMapping.put("/employee", "authc");
+//        filterChainDefinitionMapping.put("/customer", "authc");
+        filterChainDefinitionMapping.put("/**", "authc");
+
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
         shiroFilter.setSecurityManager(sm);
 
@@ -61,6 +74,13 @@ public class ShiroConfiguration {
 
         shiroFilter.setFilters(filters);
         return shiroFilter;
+    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(SecurityManager securityManager){
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager);
+        return advisor;
     }
 
 }

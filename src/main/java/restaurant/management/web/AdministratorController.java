@@ -13,12 +13,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdministratorController {
     @RequestMapping(value = "/adminEM", method = RequestMethod.GET)
     public String adminEE() {
-        return "adminEM";
+        return "admin/adminEM";
     }
 
     @RequestMapping(value = "/adminMM", method = RequestMethod.GET)
     public String adminMM() {
-        return "adminMM";
+        return "admin/adminMM";
+    }
+
+    @RequestMapping(value = "/adminCM", method = RequestMethod.GET)
+    public String adminCM() {
+        return "admin/adminCM";
+    }
+
+    @RequestMapping(value = "/adminMS", method = RequestMethod.GET)
+    public String adminMS() {
+        return "admin/adminMS";
+    }
+
+    @RequestMapping(value = "/adminSD", method = RequestMethod.GET)
+    public String adminSD() {
+        return "admin/adminSD";
+    }
+
+    @RequestMapping(value = "/adminSM", method = RequestMethod.GET)
+    public String adminSM() {
+        return "admin/adminSM";
+    }
+
+    @RequestMapping(value = "/adminSY", method = RequestMethod.GET)
+    public String adminSY() {
+        return "admin/adminSY";
     }
 
 }

@@ -28,39 +28,23 @@
             <li menu="b1" ><a href="index.html" th:href="@{/addxxx}">主页</a></li>
             <li menu="b2" ><a href="adminEM.html" th:href="@{/admin/adminEM}">员工管理</a></li>
             <li menu="b3" ><a href="adminMM.html" th:href="@{/admin/adminMM}">菜单管理</a></li>
-            <li menu="b4" ><a href="dashboard_4_1.html">用户管理</a></li>
+            <li menu="b4" ><a href="adminCM.html" th:href="@{/admin/adminCM}">用户管理</a></li>
         </ul>
     </li>
 
     <!-- 一级菜单 -->
     <li>
-        <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">账单查询</span></a>
+        <a href="adminMS.html" th:href="@{/admin/adminMS}"><i class="fa fa-diamond"></i> <span class="nav-label">账单查询</span></a>
     </li>
 
     <!-- 三级菜单 -->
-    <li>
+    <li menu="a2">
         <a><i class="fa fa-sitemap"></i> <span class="nav-label">营业额查询 </span><span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
-            <li>
-                <a href="#">Third Level <span class="fa arrow"></span></a>
-                <ul class="nav nav-third-level">
-                    <li>
-                        <a href="#">Third Level Item</a>
-                    </li>
-                    <li>
-                        <a href="#">Third Level Item</a>
-                    </li>
-                    <li>
-                        <a href="#">Third Level Item</a>
-                    </li>
 
-                </ul>
-            </li>
-            <li><a href="#">Second Level Item</a></li>
-            <li>
-                <a href="#">Second Level Item</a></li>
-            <li>
-                <a href="#">Second Level Item</a></li>
+            <li menu="c1" ><a href="adminSD.html" th:href="@{/admin/adminSD}">按日查询</a></li>
+            <li menu="c2" ><a href="adminSM.html" th:href="@{/admin/adminSM}">按月查询</a></li>
+            <li menu="c3" ><a href="adminSY.html" th:href="@{/admin/adminSY}">按年查询</a></li>
         </ul>
     </li>
 

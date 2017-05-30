@@ -22,18 +22,18 @@
     </li>
 
     <!-- 二级菜单 -->
-    <li class="active">
-        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">功能菜单</span> <span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level">
-            <li><a href="dashboard_2.html">点单功能</a></li>
-            <li><a href="dashboard_3.html">用户注册</a></li>
+    <li menu="e1">
+        <a><i class="fa fa-th-large"></i> <span class="nav-label">功能菜单</span> <span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse">
+            <li menu="d1" ><a href="employeeOM.html" th:href="@{/employee/employeeOM}">点单功能</a></li>
+            <li menu="d2" ><a href="employeeCR.html" th:href="@{/employee/employeeCR}">用户注册</a></li>
 
         </ul>
     </li>
 
     <!-- 一级菜单 -->
     <li>
-        <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">账单查询</span></a>
+        <a href="employeeMS.html"><i class="fa fa-diamond"></i> <span class="nav-label">账单查询</span></a>
     </li>
 
     <script th:inline="javascript">

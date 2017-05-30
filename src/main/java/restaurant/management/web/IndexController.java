@@ -34,19 +34,19 @@ public class IndexController {
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     @RequiresRoles({"admin"})
     public String admin() {
-        return "admin";
+        return "admin/admin";
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
     @RequiresRoles({"employee"})
     public String employee() {
-        return "employee";
+        return "employee/employee";
     }
 
     @RequestMapping(value = "/customer", method = RequestMethod.GET)
     @RequiresRoles({"customer"})
     public String customer() {
-        return "customer";
+        return "customer/customer";
     }
 
     //下面两个是例子，理解后建议删掉
@@ -57,7 +57,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/tablexxx", method = RequestMethod.GET)
-    @RequiresRoles({"employee"})
+    @RequiresRoles({"admin"})
     public String employeeTablexxx(Model model) {
         List<Administrator> administrators = new ArrayList<>();
         administrators.add(new Administrator("aa","11","13757182647",22,true,""));

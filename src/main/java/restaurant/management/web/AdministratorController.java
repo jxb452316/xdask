@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/admin")
 public class AdministratorController {
-    @RequestMapping(value = "/adminEE", method = RequestMethod.GET)
+    @RequestMapping(value = "/adminEM", method = RequestMethod.GET)
     public String adminEE() {
-        return "adminEE";
+        return "adminEM";
     }
 
     @RequestMapping(value = "/adminMM", method = RequestMethod.GET)

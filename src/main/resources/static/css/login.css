@@ -1,0 +1,104 @@
+html,body{
+	overflow: hidden;
+}
+.blur-login {
+	background: #394557 url(../img/meteorshower2.jpg) repeat
+}
+.login-layout .main-container:before {
+    display: none;
+}
+.center {
+    text-align: center !important;
+}
+.space-6 {
+    max-height: 1px;
+    min-height: 1px;
+    overflow: hidden;
+    margin: 12px 0;
+    margin: 6px 0 5px;
+}
+.position-relative {
+    position: relative;
+}
+.login-container {
+    width: 500px;
+    margin: 100px auto;
+}
+.widget-body {
+    background-color: #FFF;
+	width:375px;
+	margin:0 auto;
+}
+.login-layout .widget-box .widget-main {
+    padding: 16px 36px 36px;
+    background: #F7F7F7;
+}
+.widget-main {
+    padding: 12px;
+}
+.header.blue {
+    border-bottom-color: #d5e3ef;
+}
+h4.bigger {
+    font-size: 19px;
+}
+.header {
+    line-height: 28px;
+    margin-bottom: 16px;
+    margin-top: 18px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #CCC;
+}
+.lighter {
+    font-weight: lighter;
+}
+.header>.ace-icon {
+    margin-right: 2px;
+}
+.green {
+    color: #69aa46 !important;
+}
+.red {
+    color: #dd5a43 !important;
+}
+.blue {
+    color: #478fca !important;
+}
+.white {
+    color: #fff !important;
+}
+.light-blue {
+    color: #93cbf9 !important;
+}
+.input-icon {
+    position: relative;
+}
+.input-icon.input-icon-right>.ace-icon {
+    left: auto;
+    right: 3px;
+}
+.input-icon>.ace-icon {
+    padding: 0 3px;
+    z-index: 2;
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    left: 3px;
+    line-height: 30px;
+    display: inline-block;
+    color: #909090;
+    font-size: 16px;
+}
+.ace-icon {
+    text-align: center;
+}
+.login-layout label {
+    margin-bottom: 11px;
+}
+.block {
+    display: block !important;
+}
+label {
+    font-weight: 400;
+    font-size: 14px;
+}

@@ -1,0 +1,38 @@
+- 2017-05-22 修改内容如下：
+
+1. pom中增加shiro库依赖，shiro是web权限和会话管理的一个开源库。
+<dependency>
+	<groupId>org.apache.shiro</groupId>
+	<artifactId>shiro-spring</artifactId>
+	<version>1.3.2</version>
+</dependency>
+
+2. 添加shiro配置类
+src/main/java/restaurant/management/ShiroConfiguration.java
+理解其中的Bean设置，尤其shiroFilter的设置。
+
+3. 添加ShiroRealm类，继承自AuthorizingRealm，实现用户认证以及用户权限的功能
+src/main/java/restaurant/management/access/ShiroRealm.java
+
+4. 添加DataSource配置类，关闭hibernate的自动创建表。使用spring的DataSourceBuild初始化数据库。
+src/main/java/restaurant/management/DataSourceConfiguration.java
+src/main/resources/application.properties
+src/main/resources/restaurant-management-schema-1.0.0.sql
+src/main/resources/restaurant-management-data-1.0.0.sql
+其中，创建了三个用户。admin/admin, emp/emp, cust/cust
+
+5. 创建页面
+src/main/resources/templates/index.html
+src/main/resources/templates/login.html
+src/main/resources/templates/forbidden.html
+src/main/resources/templates/admin.html
+src/main/resources/templates/empolyee.html
+src/main/resources/templates/customer.html
+
+6. 创建Controller并添加页面所对应的mapping方法
+src/main/java/restaurant/management/web/IndexController.java
+src/main/java/restaurant/management/web/LoginController.java
+
+7. 修改了UserLoginService里authenticate方法及实现，返回UserLogin实例。
+src/main/java/restaurant/management/service/UserLoginService.java
+src/main/java/restaurant/management/service/impl/UserLoginServiceImpl.java

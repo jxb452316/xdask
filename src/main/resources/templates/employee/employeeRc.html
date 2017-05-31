@@ -9,7 +9,7 @@
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu" th:include="/common/eside-menu :: employee" th:with="active='e1|d1'">
+            <ul class="nav metismenu" id="side-menu" th:include="/common/eside-menu :: employee" th:with="active='e1|d3'">
                 这部分内容有 /common/side-menu 中 th:fragment="admin" 部分 替换
             </ul>
 
@@ -28,7 +28,7 @@
                 <h2></h2>
                 <ol class="breadcrumb">
                     <li><a href="../index.html">首页</a></li>
-                    <li><a>点单功能</a></li>
+                    <li><a>用户充值</a></li>
                     <li class="active"><strong>添加xx</strong></li>
                 </ol>
             </div>
@@ -39,7 +39,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>用户注册</h5>
+                    <h5>用户充值</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -60,19 +60,11 @@
                 </div>
                 <div class="ibox-content">
                     <form class="form-horizontal">
-                        <p>请输入注册信息.</p>
+                        <p>请输入充值用户姓名.</p>
                         <div class="form-group"><label class="col-lg-1 control-label">姓名</label>
 
                             <div class="col-lg-11"><input type="text" placeholder="姓名" class="form-control"/>
                             </div>
-                        </div>
-                        <div class="form-group"><label class="col-lg-1 control-label">身份证</label>
-
-                            <div class="col-lg-11"><input type="text" placeholder="身份证" class="form-control"/></div>
-                        </div>
-                        <div class="form-group"><label class="col-lg-1 control-label">手机</label>
-
-                            <div class="col-lg-11"><input type="text" placeholder="手机" class="form-control"/></div>
                         </div>
                         <div class="form-group"><label class="col-lg-1 control-label">充值金额</label>
 
@@ -80,14 +72,13 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset-1 col-lg-11">
-                                <button class="btn btn-sm btn-white" type="submit">注册</button>
+                                <button class="btn btn-sm btn-white" type="submit">充值</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

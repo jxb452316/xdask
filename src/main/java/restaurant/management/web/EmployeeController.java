@@ -24,4 +24,7 @@ public class EmployeeController {
     public String employeeMS() {
         return "employee/employeeMS";
     }
+
+    @RequestMapping(value = "/employeeRc", method = RequestMethod.GET)
+    public String employeeRc() {return "employee/employeeRc";}
 }

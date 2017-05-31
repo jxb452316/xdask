@@ -16,11 +16,15 @@ public class Dbill {
     private String billnumber;
     private String dishname;
     private double dishmoney;
+    private int number;
     protected Dbill(){}
-    public Dbill(String billnumber, String dishname, double dishmoney) {
+
+
+    public Dbill(String billnumber, String dishname, double dishmoney, int number) {
         this.billnumber = billnumber;
         this.dishname = dishname;
         this.dishmoney = dishmoney;
+        this.number = number;
     }
 
     public Long getId() {
@@ -55,7 +59,11 @@ public class Dbill {
         this.dishmoney = dishmoney;
     }
 
+    public int getNumber() {
+        return number;
+    }
 
-
-
+    public void setNumber(int number) {
+        this.number = number;
+    }
 }

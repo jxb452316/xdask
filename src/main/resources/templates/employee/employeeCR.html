@@ -28,7 +28,7 @@
                 <h2></h2>
                 <ol class="breadcrumb">
                     <li><a href="../index.html">首页</a></li>
-                    <li><a>xx管理</a></li>
+                    <li><a>用户管理</a></li>
                     <li class="active"><strong>添加xx</strong></li>
                 </ol>
             </div>
@@ -36,33 +36,57 @@
         </div>
 
         <!-- 主要内容部分 -->
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row"><div class="col-lg-12"><div class="ibox">
-
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>用户注册</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#">Config option 1</a>
+                            </li>
+                            <li><a href="#">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
                 <div class="ibox-content">
-                    <form id="from-id" method="get" class="form-horizontal validation">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">用户名</label>
-                            <!-- 特别注意thymeleaf模版 末尾必须有 / 或者 </xx> 结尾 -->
-                            <div class="col-sm-10"><input name="name" type="text" class="form-control" required="required" /></div>
+                    <form class="form-horizontal">
+                        <p>请输入注册信息.</p>
+                        <div class="form-group"><label class="col-lg-1 control-label">姓名</label>
+
+                            <div class="col-lg-11"><input type="text" placeholder="姓名" class="form-control"/>
+                            </div>
                         </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">订餐名什么的</label>
-                            <div class="col-sm-10"><input name="order" type="text" class="form-control" required="required" /></div>
+                        <div class="form-group"><label class="col-lg-1 control-label">身份证</label>
+
+                            <div class="col-lg-11"><input type="text" placeholder="身份证" class="form-control"/></div>
                         </div>
-                        <div class="hr-line-dashed"></div>
+                        <div class="form-group"><label class="col-lg-1 control-label">手机</label>
+
+                            <div class="col-lg-11"><input type="text" placeholder="手机" class="form-control"/></div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-1 control-label">充值金额</label>
+
+                        <div class="col-lg-11"><input type="text" placeholder="充值金额" class="form-control"/></div>
+                    </div>
                         <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-primary" type="submit">提交</button>
+                            <div class="col-lg-offset-1 col-lg-11">
+                                <button class="btn btn-sm btn-white" type="submit">注册</button>
                             </div>
                         </div>
                     </form>
                 </div>
-
-            </div></div></div>
+            </div>
         </div>
-
     </div>
 </div>
 

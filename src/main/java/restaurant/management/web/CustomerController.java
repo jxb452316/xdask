@@ -15,9 +15,6 @@ public class CustomerController {
         return "customer/customerMS";
     }
 
-    @RequestMapping(value = "/customerRc", method = RequestMethod.GET)
-    public String customerRc() {
-        return "customer/customerRc";
-    }
+
 
 }

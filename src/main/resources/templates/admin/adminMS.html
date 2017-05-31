@@ -15,7 +15,17 @@
 
             </div>
         </nav>
-
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2></h2>
+                <ol class="breadcrumb">
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a>营业额查询</a></li>
+                    <li class="active"><strong>添加xx</strong></li>
+                </ol>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
 
         <div id="page-wrapper" class="gray-bg">
             <!-- 导航条 -->
@@ -28,25 +38,37 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>账单查询</h5>
-                                <div class="ibox-tools">
-                                    <a class="collapse-link">
-                                        <i class="fa fa-chevron-up"></i>
-                                    </a>
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-wrench"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a href="#">Config option 1</a>
-                                        </li>
-                                        <li><a href="#">Config option 2</a>
-                                        </li>
-                                    </ul>
-                                    <a class="close-link">
-                                        <i class="fa fa-times"></i>
-                                    </a>
+                            <div class="row"><div class="col-lg-12"><div class="ibox tt-from-table">
+
+                                <div class="ibox-content">
+                                    <form role="form" class="form-inline validation">
+
+
+                                        <div class="form-group tt-from-input">
+                                            <label>账单编号</label>
+                                            <input type="text" class="form-control" />
+                                        </div>
+                                        <div class="form-group tt-from-input">
+                                            <label>客户姓名</label>
+                                            <input type="text" class="form-control" />
+                                        </div>
+                                        <div class="form-group tt-from-input">
+                                            <label>下单时间</label>
+                                            <input type="text" class="form-control" />
+                                        </div>
+
+
+
+                                        <div class="btn-toolbar pull-right" role="toolbar">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary" type="button">搜索</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="clearfix"></div>
                                 </div>
+
+                            </div></div>
                             </div>
                             <div class="ibox-content">
 

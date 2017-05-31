@@ -4,6 +4,48 @@
 <head th:include="/common/header :: main">
     这部分是html头
 </head>
+<style type="text/css" media="screen">
+    .main{
+        margin-top: 10px;
+    }
+    .top{
+        padding: 10px;
+    }
+    .top h4{
+        display: inline-block;
+        width:120px;
+    }
+    .top input{
+        float: right;
+    }
+    ol {
+        list-style-type: decimal;
+    }
+    .form-control{
+        display: inline-block;
+        width: 240px;
+    }
+    .form-inline li{
+        margin-bottom: 10px;
+    }
+    .remove-item,.add-item{
+        height: 30px;
+        line-height: 30px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .add-step{
+        height: 40px;
+        line-height: 40px;
+        margin: 10px 0 0 10px;
+        cursor: pointer;
+    }
+    p.select.form-group{
+        padding-left: 40px;
+        margin-top: 10px;
+    }
+</style>
+
 
 <body>
 <div id="wrapper">
@@ -32,68 +74,77 @@
                     <li class="active"><strong>添加xx</strong></li>
                 </ol>
             </div>
-            <div class="col-lg-2"></div>
         </div>
 
         <!-- 主要内容部分 -->
         <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>用户注册</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content">
-                    <form class="form-horizontal">
-                        <p>请输入注册信息.</p>
-                        <div class="form-group"><label class="col-lg-1 control-label">姓名</label>
-
-                            <div class="col-lg-11"><input type="text" placeholder="姓名" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group"><label class="col-lg-1 control-label">身份证</label>
-
-                            <div class="col-lg-11"><input type="text" placeholder="身份证" class="form-control"/></div>
-                        </div>
-                        <div class="form-group"><label class="col-lg-1 control-label">手机</label>
-
-                            <div class="col-lg-11"><input type="text" placeholder="手机" class="form-control"/></div>
-                        </div>
-                        <div class="form-group"><label class="col-lg-1 control-label">充值金额</label>
-
-                            <div class="col-lg-11"><input type="text" placeholder="充值金额" class="form-control"/></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-offset-1 col-lg-11">
-                                <button class="btn btn-sm btn-white" type="submit">注册</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="top">
+                <h4>点单功能</h4>
+                <input type="button" class="btn btn-sm btn-success" value="提交"/>
             </div>
-        </div>
 
+            <p class="select form-group">
+                <label for="foods">选择菜品:</label>
+                <select class="form-control" name="foods" id="foods" onchange="select();">
+                    <option data-price="12" value="0" selected="selected">--请选择--</option>
+                    <option data-price="121" value="1">12312312</option>
+                    <option data-price="122" value="2">1231232</option>
+                    <option data-price="123" value="3">1231232</option>
+                </select>
+                <label for="price">单价:</label>
+                <input class="form-control" id="price" type="text" value="0" disabled="disabled"/>
+                <label for="num">输入数量:</label>
+                <input class="form-control" id="num" type="number" min="0" max="99"/>
+                <span class="add-item" onclick="addItem()"><i class="glyphicon glyphicon-plus"></i></span>
+            </p>
+            <ol id="foods-box">
+
+            </ol>
+        </div>
     </div>
 </div>
 
 <div th:include="/common/footer :: js">
     这部分是引入js代码
 </div>
+<script type="text/javascript">
+    function select() {
+        console.log(12)
+        var price = $('#foods').find('option:selected').attr('data-price');
+        $('#price').val(price)
+    }
+    function addItem(){
+        var food = $('#foods').val();
+        if(food==0){
+            $('#foods').focus();
+            return
+        }
+        var foodText = $('#foods').find('option:selected').html();
+        var price = $('#foods').find('option:selected').attr('data-price');
+        var num = $('#num').val();
+        if(num==0){
+            $('#num').focus();
+            return
+        }
+        var html = '';
+        html += '<li>'
+            +'<div class="form-group">'
+            +'<input class="form-control food" type="hidden" value="'+food+'"/>'
+            +'<label for="price">已选菜名:</label>'
+            +' <input class="form-control" type="text" value="'+foodText+'"  disabled="disabled"/>'
+            +' <label for="price">单价:</label>'
+            +' <input class="form-control price" type="text" value="'+price+'" disabled="disabled"/>'
+            +' <label for="num">已选数量:</label> '
+            +' <input class="form-control num" type="number" value="'+num+'"/>'
+            +'<span class="remove-item" onclick="removeItem(this)"><i class="glyphicon glyphicon-remove"></i></span>'
+            +'</div>'
+            +'</li>';
 
+        $('#foods-box').append(html);
+    }
+    function removeItem(ele){
+        $(ele).parents('li').remove();
+    }
+</script>
 </body>
 </html>

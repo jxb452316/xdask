@@ -3,6 +3,7 @@ package restaurant.management.web;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/tablexxx", method = RequestMethod.GET)
-    @RequiresRoles({"admin"})
+    @RequiresRoles(value = {"employee","admin"},logical = Logical.OR)
     public String employeeTablexxx(Model model) {
         List<Administrator> administrators = new ArrayList<>();
         administrators.add(new Administrator("aa","11","13757182647",22,true,""));

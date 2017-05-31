@@ -83,6 +83,28 @@
     <div th:include="/common/footer :: js">
         这部分是引入js代码
     </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        //ajax
+        var submitData = function () {
+            $.ajax({
+                type: "POST",//get or post
+                dataType: "json",//json or others ,suggest json
+                url: baseUrl + "/admin/xxxx",
+                data: $('#from-id').serialize(),
+                success: function (data) {
+                    debugger;//断点
+                    //data 是Controllor返回值
+                },
+                error: function(data) {
+                    alert("error:"+data.responseText);
+                }
+            });
+        };
+
+        /*]]>*/
+    </script>
 
 </body>
 </html>

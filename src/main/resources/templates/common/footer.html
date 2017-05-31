@@ -12,6 +12,9 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
+        //base路径
+        var baseUrl = [[${#httpServletRequest.getContextPath()}]];
+
         //修改提醒为中文
         jQuery.extend(jQuery.validator.messages, {
             required: "这是必填字段",

@@ -3,6 +3,8 @@ package restaurant.management.web.rest;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import restaurant.management.common.Constant;
+import restaurant.management.common.ResultDto;
 import restaurant.management.model.Menu;
 import restaurant.management.service.MenuService;
 
@@ -26,26 +28,26 @@ public class MenuController {
     List<Menu> findByDishname(String dishname);*/
 
     @PostMapping("saveMenu")// = @RequestMapping(value = "menu",method = RequestMethod.POST)
-    public String saveMenu(Menu menu){
+    public ResultDto<Object> saveMenu(Menu menu){
         menuService.saveMenu(menu);
-        return "success";
+        return new ResultDto<>();
     }
 
     @PostMapping("updateMenu")
-    public String updateMenu(Menu menu){
+    public ResultDto<Object>  updateMenu(Menu menu){
         menuService.updateMenu(menu);
-        return "success";
+        return new ResultDto<>();
     }
 
     @PostMapping("deleteMenuById")
-    public String deleteMenuById(Long id){
+    public ResultDto<Object>  deleteMenuById(Long id){
         menuService.deleteMenuById(id);
-        return "success";
+        return new ResultDto<>();
     }
 
     @PostMapping("findByDishname")
-    public List<Menu> findByDishname(@RequestParam String dishname){
-        return menuService.findByDishname(dishname);
+    public ResultDto<List<Menu>> findByDishname(@RequestParam String dishname){
+        return new ResultDto<>(Constant.SUCCESS,menuService.findByDishname(dishname));
     }
 
 }

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/header :: main">
+    这部分是html头
+</head>
+
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu" th:include="/common/aside-menu :: customer" th:with="active='a1|b2'">
+                这部分内容有 /common/side-menu 中 th:fragment="admin" 部分 替换
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <div id="page-wrapper" class="gray-bg">
+        <!-- 导航条 -->
+        <div class="row border-bottom" th:include="/common/top-menu :: main">
+            这部分内容有 /common/top-menu 中 th:fragment="main" 部分 替换
+        </div>
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2></h2>
+                <ol class="breadcrumb">
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a>账单查询</a></li>
+                    <li class="active"><strong>账单详情</strong></li>
+                </ol>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+        <!-- 主要内容部分 -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="row"><div class="col-lg-12"><div class="ibox tt-from-table">
+
+                        <div class="ibox-content">
+                            <form role="form" class="form-inline validation">
+
+                            </form>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div></div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="footable table table-stripped toggle-arrow-tiny">
+                            <thead>
+                            <tr>
+
+                                <th data-toggle="true">账单编号</th>
+                                <th>菜名</th>
+                                <th>单价</th>
+                                <th data-hide="all">数量</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>10</td>
+                                <td>货收</td>
+                                <td>10</td>
+                                <td>1</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+</div>
+
+
+
+
+<div th:include="/common/footer :: js">
+    这部分是引入js代码
+</div>
+<script th:inline="javascript">
+    var App = new Vue({
+        //作用域，vue的所有数据与方法只在作用域内有效
+        el:"#wrapper",
+        //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
+        data:{
+            formData:{},
+            formName:"",
+            isCreate:true
+        },
+        //计算属性
+        computed:{},
+        //生命周期函数-创建时
+        created:function () {
+            this.initFormData();
+        },
+        //生命周期函数-挂载完成时即数据初始化完成
+        mounted:function () {},
+        //方法，html中调用v-on:click
+        methods:{
+            initFormData:function () {
+                this.formData = {
+                    name:null,
+                    price:null
+                }
+            },
+            showSmModal:function () {
+                this.initFormData();
+                this.formName = "添加员工";
+                this.isCreate = true;
+                $("#sm-modal").modal("show");
+            },
+            showUpdateModel:function (obj) {
+                this.formData = obj;
+                this.formName = "修改信息";
+                this.isCreate = false;
+                $("#sm-modal").modal("show");
+            },
+            submitData:function () {
+                var self = this;
+                var url = baseUrl + self.isCreate?"/add":"/update";
+                $.ajax({
+                    type:"POST",//get or post
+                    dataType:"json",//json or others ,suggest json
+                    url:url,
+                    data:self.formData,
+                    success:function (data) {
+                        alert(data);
+                    }
+                });
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>

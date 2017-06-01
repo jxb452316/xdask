@@ -222,7 +222,7 @@
                     url:baseUrl + "/menu/findByDishname",
                     data:self.conditions,
                     success:function (data) {
-                        self.tableData = data;
+                        self.tableData = data.object;
                     }
                 });
             },
@@ -247,12 +247,12 @@
                     url:url,
                     data:self.formData,
                     success:function (data) {
-                        if (data === "success"){
-                            alert(data);
+                        if (data.status === "success"){
+                            alert(data.status);
                             self.getData();
                             $("#sm-modal").modal("hide");
                         }else {
-                            alert(data);
+                            alert(data.object);
                         }
                     }
                 });

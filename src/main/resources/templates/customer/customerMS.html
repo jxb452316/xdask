@@ -9,7 +9,7 @@
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu" th:include="/common/cside-menu :: customer" th:with="active='cu1|f1'">
+            <ul class="nav metismenu" id="side-menu" th:include="/common/cside-menu :: customer">
                 这部分内容有 /common/side-menu 中 th:fragment="admin" 部分 替换
             </ul>
 
@@ -29,7 +29,7 @@
                 <ol class="breadcrumb">
                     <li><a href="../index.html">首页</a></li>
                     <li><a>xx管理</a></li>
-                    <li class="active"><strong>添加xx</strong></li>
+                    <li class="active"><strong>添加</strong></li>
                 </ol>
             </div>
             <div class="col-lg-2"></div>
@@ -77,21 +77,21 @@
                                     <td>客户一</td>
                                     <td>2017-5-01</td>
                                     <td>89.1</td>
-                                    <td> <button type="button" class="btn btn-primary btn-xs">详情</button></td>
+                                    <td><a class="btn btn-primary btn-xs" href="customerMS.html" th:href="@{/customer/customerDbill}">详情</a>></td>
                                 </tr>
                                 <tr>
                                     <td>173101</td>
                                     <td>客户一</td>
                                     <td>2017-5-01</td>
                                     <td>50</td>
-                                    <td> <button type="button" class="btn btn-primary btn-xs">详情</button></td>
+                                    <td><a class="btn btn-primary btn-xs" href="customerMS.html" th:href="@{/customer/customerDbill}">详情</a>></td>
                                 </tr>
                                 <tr>
                                     <td>173101</td>
                                     <td>客户一</td>
                                     <td>2017-5-02</td>
                                     <td>120</td>
-                                    <td> <button type="button" class="btn btn-primary btn-xs">详情</button></td>
+                                    <td><a class="btn btn-primary btn-xs" href="customerMS.html" th:href="@{/customer/customerDbill}">详情</a>></td>
                                 </tr>
                                 </tbody>
                             </table>

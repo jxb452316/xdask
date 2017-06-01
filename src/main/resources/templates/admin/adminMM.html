@@ -46,12 +46,8 @@
 
 
                         <div class="form-group tt-from-input">
-                            <label>编号</label>
-                            <input type="text" class="form-control" />
-                        </div>
-                        <div class="form-group tt-from-input">
                             <label>菜名</label>
-                            <input type="text" class="form-control" />
+                            <input v-model="conditions.dishname" type="text" class="form-control" />
                         </div>
                         <div class="form-group tt-from-input">
                             <label>单价</label>
@@ -65,7 +61,7 @@
                                 <button v-on:click="showSmModal()" class="btn btn-outline btn-primary" type="button" >添加</button>
                             </div>
                             <div class="btn-group">
-                                <button class="btn btn-primary" type="button" >搜索</button>
+                                <button v-on:click="getData()" class="btn btn-primary" type="button" >搜索</button>
                             </div>
                         </div>
                     </form>
@@ -112,30 +108,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <tr v-for="item in tableData">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.dishname}}</td>
+                                    <td>{{item.dishmoney}}</td>
+                                    <td>
+                                        <button v-on:click="showUpdateModel(item)" type="button" class="btn btn-primary btn-xs">编辑</button>
+                                        <button type="button" class="btn btn-primary btn-xs">删除</button>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>1</td>
                                     <td>Mark</td>
                                     <td>Otto</td>
                                     <td>
                                         <button v-on:click="showUpdateModel({name:'11',price:1})" type="button" class="btn btn-primary btn-xs">编辑</button>
-                                        <button type="button" class="btn btn-primary btn-xs">删除</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>
-                                        <button v-on:click="showUpdateModel({name:'Jacob',price:1})" type="button" class="btn btn-primary btn-xs">编辑</button>
-                                        <button type="button" class="btn btn-primary btn-xs">删除</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>
-                                        <button v-on:click="showUpdateModel({name:'Larry',price:1})" type="button" class="btn btn-primary btn-xs">编辑</button>
                                         <button type="button" class="btn btn-primary btn-xs">删除</button>
                                     </td>
                                 </tr>
@@ -166,11 +153,11 @@
                             <h4 class="m-t-none m-b">基本信息</h4>
                             <div class="form-group tt-from-input">
                                 <label>菜名</label>
-                                <input v-model="formData.name" type="text" name="name" required="required" class="form-control" />
+                                <input v-model="formData.dishname" type="text" name="name" required="required" class="form-control" />
                             </div>
                             <div class="form-group tt-from-input">
                                 <label>单价</label>
-                                <input v-model="formData.price" type="text" name="price" required="required" class="form-control" />
+                                <input v-model="formData.dishmoney" type="text" name="price" required="required" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -203,6 +190,10 @@
         el:"#wrapper",
         //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
         data:{
+            conditions:{
+                dishname:null
+            },
+            tableData:{},
             formData:{},
             formName:"",
             isCreate:true
@@ -212,6 +203,7 @@
         //生命周期函数-创建时
         created:function () {
             this.initFormData();
+            this.getData();
         },
         //生命周期函数-挂载完成时即数据初始化完成
         mounted:function () {},
@@ -219,9 +211,21 @@
         methods:{
             initFormData:function () {
                 this.formData = {
-                    name:null,
-                    price:null
+                    dishname:null,
+                    dishmoney:null
                 }
+            },
+            getData:function () {
+                var self = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    url:baseUrl + "/menu/findByDishname",
+                    data:self.conditions,
+                    success:function (data) {
+                        self.tableData = data;
+                    }
+                });
             },
             showSmModal:function () {
                 this.initFormData();
@@ -237,14 +241,20 @@
             },
             submitData:function () {
                 var self = this;
-                var url = baseUrl + self.isCreate?"/add":"/update";
+                var url = baseUrl + self.isCreate?"/menu/saveMenu":"/menu/updateMenu";
                 $.ajax({
                     type:"POST",//get or post
                     dataType:"json",//json or others ,suggest json
                     url:url,
                     data:self.formData,
                     success:function (data) {
-                        alert(data);
+                        if (data === "success"){
+                            alert(data);
+                            self.getData();
+                            $("#sm-modal").modal("hide");
+                        }else {
+                            alert(data);
+                        }
                     }
                 });
             }

@@ -46,4 +46,9 @@ public class AdministratorController {
         return "admin/adminSY";
     }
 
+    @RequestMapping(value = "/adminDbill", method = RequestMethod.GET)
+    public String adminDbill() {
+        return "admin/adminDbill";
+    }
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="/common/header :: main">
     这部分是html头
@@ -48,6 +48,7 @@
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Username</th>
+                                <th width="100px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -56,6 +57,10 @@
                                 <td th:text="${item.idcard}"></td>
                                 <td th:text="${item.adcellphone}"></td>
                                 <td th:text="${item.adage}"></td>
+                                <td>
+                                    <button th:attr="'v-on:click'='showUpdateModel('+${@gsonUtils.str(item)}+')'"  type="button" class="btn btn-primary btn-xs">编辑</button>
+                                    <button type="button" class="btn btn-primary btn-xs">删除</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td>2</td>
@@ -86,22 +91,19 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
-        //ajax
-        var submitData = function () {
-            $.ajax({
-                type: "POST",//get or post
-                dataType: "json",//json or others ,suggest json
-                url: baseUrl + "/admin/xxxx",
-                data: $('#from-id').serialize(),
-                success: function (data) {
-                    debugger;//断点
-                    //data 是Controllor返回值
-                },
-                error: function(data) {
-                    alert("error:"+data.responseText);
+        var App = new Vue({
+            el:"#wrapper",
+            data:{},
+            computed:{},
+            created:function () {},
+            mounted:function () {},
+            methods:{
+                showUpdateModel:function (obj) {
+                    alert(obj);
+                    console.log(obj);
                 }
-            });
-        };
+            }
+        })
 
         /*]]>*/
     </script>

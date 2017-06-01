@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import restaurant.management.model.Administrator;
 
 import java.util.ArrayList;
@@ -65,5 +66,19 @@ public class IndexController {
         administrators.add(new Administrator("bb","11","13757182647",11,true,""));
         model.addAttribute("data",administrators);
         return "employee/tablexxx";
+    }
+
+    @RequestMapping(value = "/tablexxxx", method = RequestMethod.GET)
+    public String employeeTablexxxx(Model model) {
+        return "employee/tablexxxx";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getTablexxxx", method = RequestMethod.POST)
+    public List<Administrator> employeeTablexxxx() {
+        List<Administrator> administrators = new ArrayList<>();
+        administrators.add(new Administrator("aa","11","13757182647",22,true,""));
+        administrators.add(new Administrator("bb","11","13757182647",11,true,""));
+        return administrators;
     }
 }

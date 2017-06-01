@@ -47,4 +47,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findByEmname(String emname) {
         return repository.findByEmname(emname);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Employee> filter(String emname, String emidcard, String emcellphone, Integer emage, Boolean emsex, String emaddress) {
+        return repository.filter(emname, emidcard, emcellphone, emage, emsex, emaddress);
+    }
 }

@@ -13,5 +13,5 @@ public interface EmployeeService {
     Employee findOne(Long id);
     void deleteEmployeeById(Long id);
     List<Employee> findByEmname(String emname);
-
+    List<Employee> filter(String emname, String emidcard, String emcellphone, Integer emage, Boolean emsex, String emaddress);
 }

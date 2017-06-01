@@ -14,18 +14,12 @@ import java.util.List;
  * Created by jiang (jiang.taojie@foxmail.com)
  * 2017/6/1 21:24 End.
  */
-@RestController//@RestController+@ResponseBody
+@RestController//@Controller+@ResponseBody
 @RequestMapping(value = "menu")
 public class MenuController {
 
     @Autowired
     private MenuService menuService;
-
-    /*void saveMenu(Menu menu);
-    void updateMenu(Menu menu);
-    Menu findOne(Long id);
-    void deleteMenuById(Long id);
-    List<Menu> findByDishname(String dishname);*/
 
     @PostMapping("saveMenu")// = @RequestMapping(value = "menu",method = RequestMethod.POST)
     public ResultDto<Object> saveMenu(Menu menu){

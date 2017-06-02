@@ -64,7 +64,7 @@ public class ShiroConfiguration {
 //        filterChainDefinitionMapping.put("/admin", "authc");
 //        filterChainDefinitionMapping.put("/employee", "authc");
 //        filterChainDefinitionMapping.put("/customer", "authc");
-        filterChainDefinitionMapping.put("/**", "anon");
+        filterChainDefinitionMapping.put("/**", "authc");
 
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
         shiroFilter.setSecurityManager(sm);

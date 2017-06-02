@@ -12,7 +12,7 @@ import javax.persistence.Id;
  * Change log:
  * 2017/5/20 - created by zhe.jiang
  */
-@Entity
+@Entity(name = "customer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -48,4 +48,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> findByCusname(String cusname) {
         return repository.findByCusname(cusname);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Customer> filter(String cusname, String cusidcard, String cuscellphone, double money) {
+        return repository.filter(cusname, cusidcard, cuscellphone,money);}
 }

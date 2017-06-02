@@ -17,3 +17,26 @@ create table employee (
     emremark varchar(500),
     emaddress varchar(500)
 );
+create table customer(
+    id bigint identity primary key,
+    cusname  varchar(50),
+     cusidcard varchar(50),
+    cuscellphone varchar(50),
+     money  DECIMAL (8,2)
+);
+create table bill (
+    id bigint identity primary key,
+    billnumber varchar(50),
+     cusname varchar(50),
+     date  DATE ,
+     pmoney  DECIMAL (8,2);
+
+);
+create table dbill (
+    id bigint identity primary key,
+     billnumber varchar(50),
+     dishname varchar(50),
+     dishmoney DECIMAL (8,2),
+      number    INT ;
+);
+

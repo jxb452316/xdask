@@ -13,4 +13,5 @@ public interface CustomerService {
     Customer findOne(Long id);
     void deleteCustomerById(Long id);
     List<Customer> findByCusname(String cusname);
+    List<Customer> filter(String cusname, String cusidcard, String cuscellphone, double money);
 }

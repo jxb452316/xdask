@@ -45,4 +45,9 @@ public class BillServiceImpl implements BillService {
     public List<Bill> findByBillnumber(String billnumber) {
         return repository.findByBillnumber(billnumber);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Bill> filter(String billnumber, String cusname, String date, double pmoney) {
+        return repository.filter(billnumber, cusname, date, pmoney);}
 }

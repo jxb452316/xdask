@@ -1,5 +1,6 @@
 package restaurant.management.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import restaurant.management.model.Dbill;
 
@@ -10,4 +11,5 @@ import java.util.List;
  */
 public interface DbillRepository extends CrudRepository<Dbill,Long> {
     List<Dbill> findByBillnumber(String billnumber);
+
 }

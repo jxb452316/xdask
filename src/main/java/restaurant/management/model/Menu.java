@@ -8,7 +8,7 @@ import javax.persistence.Id;
 /**
  * Created by Administrator on 2017/5/21.
  */
-@Entity
+@Entity(name = "menu")
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

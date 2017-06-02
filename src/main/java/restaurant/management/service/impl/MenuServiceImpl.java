@@ -47,4 +47,8 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> findByDishname(String dishname) {
         return repository.findByDishname(dishname);
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Menu> filter(String dishname, String dishmoney) {
+        return repository.filter(dishname, dishmoney);}
 }

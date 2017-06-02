@@ -64,16 +64,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1011</td>
-                                <td>货收1</td>
-                                <td>101</td>
-                                <td>1</td>
+                            <tr v-for="(item,index) in tableData">
+                                <td>{{item.billid}}</td>
+                                <td>{{item.dishname}}</td>
+                                <td>{{item.dishmoney}}</td>
+                                <td>{{item.number}}</td>
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="4">
                                     <ul class="pagination pull-right"></ul>
                                 </td>
                             </tr>
@@ -124,6 +124,22 @@
                     name:null,
                     price:null
                 }
+            },
+            getData:function () {
+                var self = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    url:baseUrl + "/api/customer/search",
+                    data:self.conditions,
+                    success:function (data) {
+                        self.tableData = data;
+                        if (data.length === 0) return;
+                        Vue.nextTick(function () {
+                            $('.footable').footable();
+                        });
+                    }
+                });
             },
             showSmModal:function () {
                 this.initFormData();

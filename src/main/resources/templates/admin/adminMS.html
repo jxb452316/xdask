@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="/common/header :: main">
     这部分是html头
@@ -61,7 +61,7 @@
 
                                         <div class="btn-toolbar pull-right" role="toolbar">
                                             <div class="btn-group">
-                                                <button class="btn btn-primary" type="button">搜索</button>
+                                                <button v-on:click="getData()" class="btn btn-primary" type="button">搜索</button>
                                             </div>
                                         </div>
                                     </form>
@@ -115,7 +115,9 @@
             //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
             data:{
                 conditions:{
-                    dishname:null
+                    billnumber:null,
+                    cusname:null,
+                    data:null
                 },
                 tableData:{},
                 formData:{},
@@ -136,8 +138,10 @@
             methods:{
                 initFormData:function () {
                     this.formData = {
-                        dishname:null,
-                        dishmoney:null
+                        billnumber:null,
+                        cusname:null,
+                        data:null,
+
                     }
                 },
                 getData:function () {

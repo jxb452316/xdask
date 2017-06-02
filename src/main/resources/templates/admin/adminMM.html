@@ -255,7 +255,7 @@
                 var self = this;
                 SweetAlertUtils.show().sure(function () {
                     $.ajax({
-                        type:"POST",
+                        type:"delete",
                         dataType:"json",
                         contentType: "application/json",
                         url:baseUrl + "/api/menu/delete/" + item.id,

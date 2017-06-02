@@ -35,7 +35,7 @@ public class MenuController {
         return menu;
     }
 
-    @PostMapping("delete/{id}")
+    @DeleteMapping("delete/{id}")
     public OperationResponse  deleteMenuById(@PathVariable Long id){
         menuService.deleteMenuById(id);
         OperationResponse response = new OperationResponse();

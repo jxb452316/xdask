@@ -22,4 +22,4 @@ values
 
 insert into customer (cusname, cusidcard, cuscellphone ,money)
 values
-  ('me',330483197811120978, 13211111111,1.2);
+  ('jone',330483197811120978, 13211111111,1.2);

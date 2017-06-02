@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * Change log:
  * 2017/5/20 - created by zhe.jiang
  */
-@Entity(name = "employee")
+@Entity(name = "user_login")
 @Table(name = "user_login")
 public class UserLogin {
     public static final int USER_TYPE_UNKNOWN = 0;

@@ -29,7 +29,7 @@ create table bill (
     billnumber varchar(50),
      cusname varchar(50),
      date  DATE ,
-     pmoney  DECIMAL (8,2);
+     pmoney  DECIMAL (8,2)
 
 );
 create table dbill (
@@ -37,6 +37,10 @@ create table dbill (
      billnumber varchar(50),
      dishname varchar(50),
      dishmoney DECIMAL (8,2),
-      number    INT ;
+      number    INT
 );
-
+create table menu (
+  id bigint identity primary key,
+  dishname varchar(50),
+  dishmoney DECIMAL (8,2)
+);

@@ -220,7 +220,7 @@
                 $.ajax({
                     type:"POST",
                     dataType:"json",
-                    url:baseUrl + "api/menu/search",
+                    url:baseUrl + "/api/menu/search",
                     data:self.conditions,
                     success:function (data) {
                         self.tableData = data;

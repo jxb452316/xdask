@@ -13,6 +13,6 @@ public interface MenuRepository extends CrudRepository<Menu,Long> {
     List<Menu> findByDishname(String dishname);
 
     @Query("select a from menu a " +
-            "where (?1 is null or a.dishname like ?1) ")
+            "where (?1 is null or ?1 = '' or a.dishname like ?1) ")
     List<Menu> filter(String dishname);
 }

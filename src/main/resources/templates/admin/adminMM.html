@@ -194,6 +194,7 @@
             },
             tableData:{},
             formData:{},
+            formSource:{},
             formName:"",
             isCreate:true
         },
@@ -219,10 +220,10 @@
                 $.ajax({
                     type:"POST",
                     dataType:"json",
-                    url:baseUrl + "/menu/findByDishname",
+                    url:baseUrl + "api/menu/search",
                     data:self.conditions,
                     success:function (data) {
-                        self.tableData = data.object;
+                        self.tableData = data;
                     }
                 });
             },
@@ -233,29 +234,31 @@
                 $("#sm-modal").modal("show");
             },
             showUpdateModel:function (obj) {
-                this.formData = obj;
+                this.formSource = obj;
+                this.formData = $.extend(true,{},obj);
                 this.formName = "修改菜单";
                 this.isCreate = false;
                 $("#sm-modal").modal("show");
             },
             submitData:function () {
                 var self = this;
-                var url = baseUrl + self.isCreate?"/menu/saveMenu":"/menu/updateMenu";
+                var url = baseUrl + self.isCreate?"/api/menu/save":"/api/menu/update";
                 $.ajax({
-                    type:"POST",//get or post
-                    dataType:"json",//json or others ,suggest json
+                    type:"POST",
+                    dataType:"json",
+                    contentType: "application/json",
                     url:url,
-                    data:self.formData,
+                    data: JSON.stringify(self.formData),
                     success:function (data) {
-                        if (data.status === "success"){
-                            alert(data.status);
-                            self.getData();
-                            $("#sm-modal").modal("hide");
-                        }else {
-                            alert(data.object);
-                        }
+                        self.formData = data;
+                        $("#sm-modal").modal("hide");
                     }
                 });
+            },
+            updateTableData:function (data) {
+                var self = this;
+                if (self.isCreate) self.tableData.push(data);
+                else $.extend(true,self.formSource,data);
             }
         }
     })

@@ -3,9 +3,7 @@ package restaurant.management.web.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import restaurant.management.model.Customer;
-import restaurant.management.model.Employee;
 import restaurant.management.service.CustomerService;
-import restaurant.management.service.EmployeeService;
 import restaurant.management.utils.CommonUtils;
 
 import java.util.List;

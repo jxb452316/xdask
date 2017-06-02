@@ -123,25 +123,25 @@
                                 <h4 class="m-t-none m-b">基本信息</h4>
                                 <div class="form-group tt-from-input">
                                     <label>姓名</label>
-                                    <input type="text" name="name" required="required" class="form-control" />
+                                    <input v-model="formData.cusname" type="text" name="name" required="required" class="form-control" />
                                 </div>
                                 <div class="form-group tt-from-input">
                                     <label>身份证</label>
-                                    <input type="text" name="ss" required="required" class="form-control" />
+                                    <input v-model="formData.cusidcard" type="text" name="ss" required="required" class="form-control" />
                                 </div>
                                 <div class="form-group tt-from-input">
                                     <label>手机</label>
-                                    <input type="text" name="ss" required="required" class="form-control" />
+                                    <input v-model="formData.cuscellphone" type="text" name="ss" required="required" class="form-control" />
                                 </div>
                                 <div class="form-group tt-from-input">
                                     <label>充值金额</label>
-                                    <input type="text" name="ss" required="required" class="form-control" />
+                                    <input v-model="formData.money" type="text" name="ss" required="required" class="form-control" />
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <button v-on:click="submitData" type="button" class="btn btn-sm btn-primary pull-right m-t-n-xs"><strong>确认</strong></button>
+                                <button v-on:click="submitData()" type="button" class="btn btn-sm btn-primary pull-right m-t-n-xs"><strong>确认</strong></button>
                                 <button data-dismiss="modal" type="button" class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel"><strong>取消</strong></button>
                             </div>
                         </div>
@@ -185,8 +185,10 @@
         methods:{
             initFormData:function () {
                 this.formData = {
-                    name:null,
-                    price:null
+                    cusname:null,
+                    cusidcard:null,
+                    cuacellphone:null,
+                    money:null
                 }
             },
             showSmModal:function () {

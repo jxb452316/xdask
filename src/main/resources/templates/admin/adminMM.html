@@ -117,15 +117,6 @@
                                         <button type="button" class="btn btn-primary btn-xs">删除</button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>
-                                        <button v-on:click="showUpdateModel({name:'11',price:1})" type="button" class="btn btn-primary btn-xs">编辑</button>
-                                        <button type="button" class="btn btn-primary btn-xs">删除</button>
-                                    </td>
-                                </tr>
                                 </tbody>
                             </table>
 
@@ -242,7 +233,7 @@
             },
             submitData:function () {
                 var self = this;
-                var url = baseUrl + self.isCreate?"/api/menu/save":"/api/menu/update";
+                var url = baseUrl + (self.isCreate?"/api/menu/save":"/api/menu/update");
                 $.ajax({
                     type:"POST",
                     dataType:"json",
@@ -250,7 +241,7 @@
                     url:url,
                     data: JSON.stringify(self.formData),
                     success:function (data) {
-                        self.formData = data;
+                        self.updateTableData(data);
                         $("#sm-modal").modal("hide");
                     }
                 });

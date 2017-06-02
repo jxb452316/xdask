@@ -12,6 +12,5 @@ public interface BillService {
     void updateBill(Bill bill);
     Bill findOne(Long id);
     void deleteBillById(Long id);
-    List<Bill> findByBillnumber(String billnumber);
-    List<Bill> filter(String billnumber, String cusname, String date, Double pmoney);
+    List<Bill> filter(Long billid, String cusname, String date, Double pmoney);
 }

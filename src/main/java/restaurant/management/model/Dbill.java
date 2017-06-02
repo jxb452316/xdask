@@ -13,15 +13,15 @@ public class Dbill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String billnumber;
+    private Long billid;
     private String dishname;
     private double dishmoney;
     private int number;
     protected Dbill(){}
 
 
-    public Dbill(String billnumber, String dishname, double dishmoney, int number) {
-        this.billnumber = billnumber;
+    public Dbill(Long billid, String dishname, double dishmoney, int number) {
+        this.billid = billid;
         this.dishname = dishname;
         this.dishmoney = dishmoney;
         this.number = number;
@@ -35,12 +35,12 @@ public class Dbill {
         this.id = id;
     }
 
-    public String getBillnumber() {
-        return billnumber;
+    public Long getBillid() {
+        return billid;
     }
 
-    public void setBillnumber(String billnumber) {
-        this.billnumber = billnumber;
+    public void setBillid(Long billid) {
+        this.billid = billid;
     }
 
     public String getDishname() {

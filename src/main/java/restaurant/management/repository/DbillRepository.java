@@ -10,6 +10,6 @@ import java.util.List;
  * Created by Administrator on 2017/5/21.
  */
 public interface DbillRepository extends CrudRepository<Dbill,Long> {
-    List<Dbill> findByBillnumber(String billnumber);
+    List<Dbill> findByBillid(Long billid);
 
 }

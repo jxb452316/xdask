@@ -12,5 +12,5 @@ public interface DbillService {
     void updateDbill(Dbill dbill);
     Dbill findOne(Long id);
     void deleteDbillById(Long id);
-    List<Dbill> findByBillnumber(String billnumber);
+    List<Dbill> findByBillid(Long billid);
 }

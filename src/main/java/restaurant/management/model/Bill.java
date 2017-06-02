@@ -12,8 +12,7 @@ import javax.persistence.Id;
 public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String billnumber;
+    private Long id; // this is linked to the foreign key in Dbill (billid)
     private String cusname;
     private String date;
     private double pmoney;
@@ -21,9 +20,7 @@ public class Bill {
     protected Bill() {
     }
 
-    public Bill( String billnumber, String cusname, String date, double pmoney) {
-
-        this.billnumber = billnumber;
+    public Bill(String cusname, String date, double pmoney) {
         this.cusname = cusname;
         this.date = date;
         this.pmoney = pmoney;
@@ -35,14 +32,6 @@ public class Bill {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getBillnumber() {
-        return billnumber;
-    }
-
-    public void setBillnumber(String billnumber) {
-        this.billnumber = billnumber;
     }
 
     public String getCusname() {

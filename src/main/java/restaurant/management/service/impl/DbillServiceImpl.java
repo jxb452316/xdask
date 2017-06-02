@@ -42,7 +42,7 @@ public class DbillServiceImpl implements DbillService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Dbill> findByBillnumber(String billnumber) {return repository.findByBillnumber(billnumber);
+    public List<Dbill> findByBillid(Long billid) {return repository.findByBillid(billid);
     }
 
 

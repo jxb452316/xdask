@@ -56,4 +56,21 @@ public class CustomerRestController {
         return response;
     }
 
+    @RequestMapping(value = "addAmount", method = { RequestMethod.POST })
+    public OperationResponse addAmount(@RequestParam String cusname,@RequestParam Double amount) {
+        OperationResponse response = new OperationResponse();
+        List<Customer> customers = customerService.findByCusname(cusname);
+        if (customers.size() == 0) {
+            response.setSuccess(false);
+            response.setMessage("用户不存在");
+            return response;
+        }
+        Customer customer = customers.get(0);
+        Double temp = customer.getMoney() + amount;
+        customer.setMoney(temp);
+        customerService.saveCustomer(customer);
+        response.setSuccess(true);
+        return response;
+    }
+
 }

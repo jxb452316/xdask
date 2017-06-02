@@ -63,16 +63,16 @@
                         <p>请输入充值用户姓名.</p>
                         <div class="form-group"><label class="col-lg-1 control-label">姓名</label>
 
-                            <div class="col-lg-11"><input type="text" placeholder="姓名" class="form-control"/>
+                            <div class="col-lg-11"><input v-model="conditions.cusname" type="text" placeholder="姓名" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group"><label class="col-lg-1 control-label">充值金额</label>
 
-                            <div class="col-lg-11"><input type="text" placeholder="充值金额" class="form-control"/></div>
+                            <div class="col-lg-11"><input v-model="conditions.amount"  type="text" placeholder="充值金额" class="form-control"/></div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset-1 col-lg-11">
-                                <button class="btn btn-sm btn-white" type="submit">充值</button>
+                                <button click="getData()" class="btn btn-sm btn-white" type="submit">充值</button>
                             </div>
                         </div>
                     </form>
@@ -85,6 +85,116 @@
 <div th:include="/common/footer :: js">
     这部分是引入js代码
 </div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
 
+    var App = new Vue({
+        //作用域，vue的所有数据与方法只在作用域内有效
+        el:"#wrapper",
+        //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
+        data:{
+            //这个是对应搜索条件
+            conditions:{
+                cusname:null,
+                amount:null
+            },
+            //这个是对应表格
+            tableData:[],
+            formData:{},
+            formSource:{},
+            formName:"",
+            isCreate:true
+        },
+        //计算属性
+        computed:{},
+        //生命周期函数-创建时
+        created:function () {
+            this.initFormData();
+            this.getData();
+        },
+        //生命周期函数-挂载完成时即数据初始化完成
+        mounted:function () {},
+        //方法，html中调用v-on:click
+        methods:{
+            initFormData:function () {
+                this.formData = {
+                    cusname:null,
+                    cusidcard:null,
+                    cuacellphone:null,
+                    money:null//这里多添加参数没事的，比如这个money，但是不能少
+                }
+            },
+            getData:function () {
+                var self = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    url:baseUrl + "/api/customer/addAmount",
+                    data:self.conditions,
+                    success:function (data) {
+                        self.tableData = data;
+                    }
+                });
+            },
+            showSmModal:function () {
+                this.initFormData();
+                this.formName = "添加用户";
+                this.isCreate = true;
+                $("#sm-modal").modal("show");
+            },
+            showUpdateModel:function (obj) {
+                this.formData = obj;
+                this.formName = "修改信息";
+                this.isCreate = false;
+                $("#sm-modal").modal("show");
+            },
+            submitData:function () {
+                var self = this;
+                var url = baseUrl + (self.isCreate?"/api/customer/save":"/api/customer/update");
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    contentType: "application/json",
+                    url:url,
+                    data: JSON.stringify(self.formData),
+                    success:function (data) {
+                        self.updateTableData(data);
+                        $("#sm-modal").modal("hide");
+                        ToastrUtils.show("成功","操作成功",1);
+                    }
+                });
+            },
+            updateTableData:function (data) {
+                var self = this;
+                if (self.isCreate) self.tableData.push(data);
+                else $.extend(true,self.formSource,data);
+            },
+            deleteData:function (item,index) {
+                var self = this;
+                SweetAlertUtils.show().sure(function () {
+                    $.ajax({
+                        type:"DELETE",
+                        dataType:"json",
+                        contentType: "application/json",
+                        url:baseUrl + "/api/customer/delete/" + item.id,
+                        success:function (data) {
+                            if (data.success) {
+                                self.tableData.splice(index, 1);
+                                ToastrUtils.show("成功","操作成功",1);
+                            }else {
+                                alert(data.message);
+                                ToastrUtils.show("失败","操作失败",9);
+                            }
+                        }
+                    });
+                });
+            }
+        }
+    })
+
+
+
+    /*]]>*/
+</script>
 </body>
 </html>

@@ -51,6 +51,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Customer> filter(String cusname, String cusidcard, String cuscellphone, double money) {
+    public List<Customer> filter(String cusname, String cusidcard, String cuscellphone, Double money) {
         return repository.filter(cusname, cusidcard, cuscellphone,money);}
 }

@@ -17,5 +17,5 @@ public interface CustomerRepository extends CrudRepository<Customer,Long> {
             "and (?3 is null or a.cuscellphone like ?3) " +
             "and (?4 is null or a.money = ?4) ")
 
-    List<Customer> filter(String cusname, String cusidcard, String cuscellphone, double money);
+    List<Customer> filter(String cusname, String cusidcard, String cuscellphone, Double money);
 }

@@ -57,7 +57,8 @@ public class CustomerRestController {
     }
 
     @RequestMapping(value = "addAmount", method = { RequestMethod.POST })
-    public OperationResponse addAmount(@RequestParam String cusname,@RequestParam Double amount) {
+    public OperationResponse addAmount(@RequestParam(name = "cusname", required = false, defaultValue = "") String cusname,
+                                       @RequestParam(name = "amount", required = false, defaultValue = "0") Double amount) {
         OperationResponse response = new OperationResponse();
         List<Customer> customers = customerService.findByCusname(cusname);
         if (customers.size() == 0) {

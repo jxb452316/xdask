@@ -10,38 +10,37 @@ import restaurant.management.service.MenuService;
 
 import java.util.List;
 
-/**
- * Created by jiang (jiang.taojie@foxmail.com)
- * 2017/6/1 21:24 End.
- */
-@RestController//@Controller+@ResponseBody
-@RequestMapping(value = "menu")
+@RestController
+@RequestMapping(value = "api/menu")
 public class MenuController {
 
     @Autowired
     private MenuService menuService;
 
-    @PostMapping("saveMenu")// = @RequestMapping(value = "menu",method = RequestMethod.POST)
-    public ResultDto<Object> saveMenu(Menu menu){
+
+    @RequestMapping( value = "search" , method = { RequestMethod.POST, RequestMethod.GET })
+    public List<Menu> search(@RequestParam String dishname){
+        return menuService.filter(dishname);
+    }
+
+    @PostMapping("save")// = @RequestMapping(value = "menu",method = RequestMethod.POST)
+    public Menu saveMenu(@RequestBody Menu menu){
         menuService.saveMenu(menu);
-        return new ResultDto<>();
+        return menu;
     }
 
-    @PostMapping("updateMenu")
-    public ResultDto<Object>  updateMenu(Menu menu){
+    @PostMapping("update")
+    public Menu  updateMenu(@RequestBody Menu menu){
         menuService.updateMenu(menu);
-        return new ResultDto<>();
+        return menu;
     }
 
-    @PostMapping("deleteMenuById")
-    public ResultDto<Object>  deleteMenuById(Long id){
+    @PostMapping("delete/{id}")
+    public OperationResponse  deleteMenuById(@PathVariable Long id){
         menuService.deleteMenuById(id);
-        return new ResultDto<>();
-    }
-
-    @PostMapping("findByDishname")
-    public ResultDto<List<Menu>> findByDishname(@RequestParam String dishname){
-        return new ResultDto<>(Constant.SUCCESS,menuService.findByDishname(dishname));
+        OperationResponse response = new OperationResponse();
+        response.setSuccess(true);
+        return response;
     }
 
 }

@@ -17,3 +17,12 @@ create table employee (
     emremark varchar(500),
     emaddress varchar(500)
 );
+create table menu (
+
+  id bigint identity primary key,
+
+  dishname varchar(50),
+
+  dishmoney DECIMAL (8,2)
+
+);

@@ -13,4 +13,6 @@ public interface MenuService {
     Menu findOne(Long id);
     void deleteMenuById(Long id);
     List<Menu> findByDishname(String dishname);
+
+    List<Menu> filter(String dishname);
 }

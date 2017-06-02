@@ -108,13 +108,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="item in tableData">
+                                <tr v-for="(item,index) in tableData">
                                     <td>{{item.id}}</td>
                                     <td>{{item.dishname}}</td>
                                     <td>{{item.dishmoney}}</td>
                                     <td>
                                         <button v-on:click="showUpdateModel(item)" type="button" class="btn btn-primary btn-xs">编辑</button>
-                                        <button type="button" class="btn btn-primary btn-xs">删除</button>
+                                        <button v-on:click="deleteData(item,index)" type="button" class="btn btn-primary btn-xs">删除</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -250,6 +250,24 @@
                 var self = this;
                 if (self.isCreate) self.tableData.push(data);
                 else $.extend(true,self.formSource,data);
+            },
+            deleteData:function (item,index) {
+                var self = this;
+                SweetAlertUtils.show().sure(function () {
+                    $.ajax({
+                        type:"POST",
+                        dataType:"json",
+                        contentType: "application/json",
+                        url:baseUrl + "/api/menu/delete/" + item.id,
+                        success:function (data) {
+                            if (data.success) {
+                                self.tableData.splice(index, 1);
+                            }else {
+                                alert(data.message);
+                            }
+                        }
+                    });
+                });
             }
         }
     })

@@ -8,6 +8,7 @@
     <script src="js/plugins/flot/jquery.flot.resize.js" th:src="@{/js/plugins/flot/jquery.flot.resize.js}"></script>
     <script src="js/plugins/flot/jquery.flot.pie.js" th:src="@{/js/plugins/flot/jquery.flot.pie.js}"></script>
     <script src="js/plugins/flot/jquery.flot.time.js" th:src="@{/js/plugins/flot/jquery.flot.time.js}"></script>
+    <script src="js/plugins/sweetalert/sweetalert.min.js" th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
     <!-- thymeleaf js部分代码比较难写，下面的注释不要去掉 -->
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -35,6 +36,61 @@
             max: $.validator.format("请输入不大于 {0} 的数值"),
             min: $.validator.format("请输入不小于 {0} 的数值")
         });
+
+
+        //SweetAlert弹出框
+        var SweetAlertUtils = {
+            show:function (title,text) {
+
+                var content;
+
+                if (title === undefined){
+                    content = {};
+                }else {
+                    content = JsonUtils.isJson(title)?title:{
+                        "title":title,
+                        "text":text
+                    };
+                }
+
+                var option = jQuery.extend(true,{
+                    title: "是否确定?",
+                    text: "你当前的操作属于威胁操作!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: true
+                },content);
+
+                var button = {
+                    sure:function () {
+                        swal("成功!", "操作成功.", "success");
+                    },
+                    cancel:function () {
+                        //swal("取消!", "您取消了当前操作.", "success");
+                    }
+                };
+
+                swal(option, function (isConfirm) {
+                    isConfirm?button.sure():button.cancel();
+                });
+
+                var returnObj = {
+                    sure:function (func) {
+                        button.sure = func;
+                        return returnObj;
+                    },
+                    cancel:function (func) {
+                        button.cancel = func;
+                        return returnObj;
+                    }
+                };
+
+                return returnObj;
+            }
+        };
 
         /*]]>*/
     </script>

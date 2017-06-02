@@ -92,6 +92,45 @@
                 return returnObj;
             }
         };
+        //弹出框
+        var ToastrUtils = {
+            defaultConfig:function () {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "progressBar": true,
+                    "preventDuplicates": false,
+                    "positionClass": "toast-top-right",
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+            },
+            show:function (title,msg,level) {
+                level = level||1;
+                var toastrMethod;
+                switch (level){
+                    case 0:toastrMethod = "success";break;
+                    case 1:
+                    case 2:
+                    case 3:toastrMethod = "info";break;
+                    case 4:
+                    case 5:
+                    case 6:toastrMethod = "warning";break;
+                    case 7:
+                    case 8:
+                    case 9:toastrMethod = "error";break;
+                }
+                toastr[toastrMethod](msg,title);
+            }
+        };
+        ToastrUtils.defaultConfig();
 
         /*]]>*/
     </script>

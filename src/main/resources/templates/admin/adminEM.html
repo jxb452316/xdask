@@ -76,7 +76,7 @@
 
                                     </div>
                                     <div class="btn-group">
-                                        <button class="btn btn-primary" type="button">搜索</button>
+                                        <button v-on:click="getData()" class="btn btn-primary" type="button">搜索</button>
                                     </div>
                                 </div>
                             </form>
@@ -264,6 +264,7 @@
         //生命周期函数-创建时
         created:function () {
             this.initFormData();
+            this.getData();
         },
         //生命周期函数-挂载完成时即数据初始化完成
         mounted:function () {},
@@ -279,6 +280,22 @@
                     emremark:null,
                     emaddress:null,
                 }
+            },
+            getData:function () {
+                var self = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    url:baseUrl + "/api/employee/search",
+                    data:self.conditions,
+                    success:function (data) {
+                        self.tableData = data;
+                        if (data.length === 0) return;
+                        Vue.nextTick(function () {
+                            $('.footable').footable();
+                        });
+                    }
+                });
             },
             showSmModal:function () {
                 this.initFormData();

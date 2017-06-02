@@ -103,71 +103,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>雇员1</td>
-                                <td>333333333333333333</td>
-                                <td>11111111111</td>
-                                <td>30</td>
-                                <td>女</td>
-                                <td>漳州</td>
-                                <td>无</td>
+
+                            <tr v-for="(item,index) in tableData">
+                                <td>{{item.emname}}</td>
+                                <td>{{item.emidcard}}</td>
+                                <td>{{item.emcellphone}}</td>
+                                <td>{{item.emage}}</td>
+                                <td>{{item.emsex}}</td>
+                                <td>{{item.emremark}}</td>
+                                <td>{{item.emaddress}}</td>
                                 <td>
-                                    <button v-on:click="showUpdateModel({name:'Jacob',price:1})" type="button" class="btn btn-primary btn-xs">编辑</button>
-                                    <button type="button" class="btn btn-primary btn-xs">删除</button>
+                                    <button v-on:click="showUpdateModel(item)" type="button" class="btn btn-primary btn-xs">编辑</button>
+                                    <button v-on:click="deletedata(item,index)" type="button" class="btn btn-primary btn-xs">删除</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>雇员2</td>
-                                <td>333333333333333333</td>
-                                <td>11111111111</td>
-                                <td>30</td>
-                                <td>女</td>
-                                <td>漳州</td>
-                                <td>无</td>
-                                <td>
-                                    <button v-on:click="showUpdateModel({name:'Jacob',price:1})" type="button" class="btn btn-primary btn-xs">编辑</button>
-                                    <button type="button" class="btn btn-primary btn-xs">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>雇员3</td>
-                                <td>333333333333333333</td>
-                                <td>11111111111</td>
-                                <td>30</td>
-                                <td>女</td>
-                                <td>漳州</td>
-                                <td>无</td>
-                                <td>
-                                    <button v-on:click="showUpdateModel({name:'Jacob',price:1})" type="button" class="btn btn-primary btn-xs">编辑</button>
-                                    <button type="button" class="btn btn-primary btn-xs">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>雇员4</td>
-                                <td>333333333333333333</td>
-                                <td>11111111111</td>
-                                <td>30</td>
-                                <td>女</td>
-                                <td>漳州</td>
-                                <td>无</td>
-                                <td>
-                                    <button v-on:click="showUpdateModel({name:'Jacob',price:1})" type="button" class="btn btn-primary btn-xs">编辑</button>
-                                    <button type="button" class="btn btn-primary btn-xs">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>雇员5</td>
-                                <td>333333333333333333</td>
-                                <td>11111111111</td>
-                                <td>30</td>
-                                <td>女</td>
-                                <td>漳州</td>
-                                <td>无</td>
-                                <td>
-                                    <button v-on:click="showUpdateModel({name:'Jacob',price:1})" type="button" class="btn btn-primary btn-xs">编辑</button>
-                                    <button type="button" class="btn btn-primary btn-xs">删除</button>
-                                </td>
-                            </tr>
+
 
                             </tbody>
                             <tfoot>
@@ -330,15 +280,40 @@
             },
             submitData:function () {
                 var self = this;
-                var url = baseUrl + self.isCreate?"/add":"/update";
+                var url = baseUrl + (self.isCreate?"/api/employee/save":"/api/employee/update");
                 $.ajax({
                     type:"POST",//get or post
                     dataType:"json",//json or others ,suggest json
+                    contentType: "application/json",
                     url:url,
-                    data:self.formData,
+                    data:  JSON.stringify(self.formData),
                     success:function (data) {
-                        alert(data);
+                        self.updateTableData(data);
+                        $("#sm-modal").modal("hide");
                     }
+                });
+            },
+            updateTableData:function (data) {
+                var self = this;
+                if (self.isCreate) self.tableData.push(data);
+                else $.extend(true,self.formSource,data);
+            },
+            deleteData:function (item,index) {
+                var self = this;
+                SweetAlertUtils.show().sure(function () {
+                    $.ajax({
+                        type:"POST",
+                        dataType:"json",
+                        contentType: "application/json",
+                        url:baseUrl + "/api/employee/delete/" + item.id,
+                        success:function (data) {
+                            if (data.success) {
+                                self.tableData.splice(index, 1);
+                            }else {
+                                alert(data.message);
+                            }
+                        }
+                    });
                 });
             }
         }

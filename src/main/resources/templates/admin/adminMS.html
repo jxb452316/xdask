@@ -83,11 +83,11 @@
                                     <tbody>
 
                                     <tr v-for="(item,index) in tableData">
-                                        <td>{{item.billnumber}}</td>
+                                        <td>{{item.id}}</td>
                                         <td>{{item.cusname}}</td>
                                         <td>{{item.date}}</td>
                                         <td>{{item.pmoney}}</td>
-                                        <td><a class="btn btn-primary btn-xs" href="adminDbill.html" :href="'/admin/adminDbill/'+item.billnumber">详情</a>></td>
+                                        <td><a class="btn btn-primary btn-xs" href="adminDbill.html" :href="'/admin/adminDbill/'+item.id">详情</a>></td>
                                     </tr>
 
                                     </tbody>

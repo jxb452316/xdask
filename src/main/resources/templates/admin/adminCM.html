@@ -48,15 +48,15 @@
 
                                     <div class="form-group tt-from-input">
                                         <label>用户姓名</label>
-                                        <input type="text" class="form-control" />
+                                        <input v-model="conditions.cusname" type="text" class="form-control" />
                                     </div>
                                     <div class="form-group tt-from-input">
                                         <label>用户身份证</label>
-                                        <input type="text" class="form-control" />
+                                        <input v-model="conditions.cusidcard" type="text" class="form-control" />
                                     </div>
                                     <div class="form-group tt-from-input">
                                         <label>手机</label>
-                                        <input type="text" class="form-control" />
+                                        <input v-model="conditions.cuacellphone" type="text" class="form-control" />
                                     </div>
 
 
@@ -66,7 +66,7 @@
                                             <button v-on:click="showSmModal()" class="btn btn-outline btn-primary" type="button">添加</button>
                                         </div>
                                         <div class="btn-group">
-                                            <button class="btn btn-primary" type="button">搜索</button>
+                                            <button v-on:click="getData()" class="btn btn-primary" type="button">搜索</button>
                                         </div>
                                     </div>
                                 </form>
@@ -187,6 +187,7 @@
         //生命周期函数-创建时
         created:function () {
             this.initFormData();
+            this.getData();
         },
         //生命周期函数-挂载完成时即数据初始化完成
         mounted:function () {},
@@ -197,8 +198,20 @@
                     cusname:null,
                     cusidcard:null,
                     cuacellphone:null,
-                    money:null
+                    money:null//这里多添加参数没事的，比如这个money，但是不能少
                 }
+            },
+            getData:function () {
+                var self = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    url:baseUrl + "/api/customer/search",
+                    data:self.conditions,
+                    success:function (data) {
+                        self.tableData = data;
+                    }
+                });
             },
             showSmModal:function () {
                 this.initFormData();

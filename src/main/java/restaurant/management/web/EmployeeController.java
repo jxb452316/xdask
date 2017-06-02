@@ -1,6 +1,8 @@
 package restaurant.management.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,7 +30,10 @@ public class EmployeeController {
     @RequestMapping(value = "/employeeRc", method = RequestMethod.GET)
     public String employeeRc() {return "employee/employeeRc";}
 
-    @RequestMapping(value = "/employeeDbill", method = RequestMethod.GET)
-    public String employeeDbill() {return "employee/employeeDbill";}
+    @RequestMapping(value = "/employeeDbill/{billId}", method = RequestMethod.GET)
+    public String employeeDbill(@PathVariable Long billId, Model model) {
+        model.addAttribute("billId",billId);
+        return "employee/employeeDbill";
+    }
 
 }

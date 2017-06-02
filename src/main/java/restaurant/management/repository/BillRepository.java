@@ -16,5 +16,5 @@ public interface BillRepository extends CrudRepository<Bill,Long> {
             "and (?2 is null or a.cusname like ?2) " +
             "and (?3 is null or a.date like ?3) " +
             "and (?4 is null or a.pmoney = ?4) ")
-    List<Bill> filter(String billnumber, String cusname, String date, double pmoney);
+    List<Bill> filter(String billnumber, String cusname, String date, Double pmoney);
 }

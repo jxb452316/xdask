@@ -48,6 +48,6 @@ public class BillServiceImpl implements BillService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Bill> filter(String billnumber, String cusname, String date, double pmoney) {
+    public List<Bill> filter(String billnumber, String cusname, String date, Double pmoney) {
         return repository.filter(billnumber, cusname, date, pmoney);}
 }

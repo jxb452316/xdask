@@ -9,7 +9,7 @@
     <div id="wrapper">
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
-                <ul class="nav metismenu" id="side-menu" th:include="/common/aside-menu :: admin">
+                <ul class="nav metismenu" id="side-menu" th:include="/common/aside-menu :: admin" th:with="active='bill'">
 
                 </ul>
 
@@ -20,8 +20,7 @@
                 <h2></h2>
                 <ol class="breadcrumb">
                     <li><a href="../index.html">首页</a></li>
-                    <li><a>营业额查询</a></li>
-                    <li class="active"><strong>添加xx</strong></li>
+                    <li class="active"><strong>营业额查询</strong></li>
                 </ol>
             </div>
             <div class="col-lg-2"></div>
@@ -88,7 +87,7 @@
                                         <td>{{item.cusname}}</td>
                                         <td>{{item.date}}</td>
                                         <td>{{item.pmoney}}</td>
-                                        <td><a class="btn btn-primary btn-xs" href="adminDbill.html" th:href="@{/admin/adminDbill}">详情</a>></td>
+                                        <td><a class="btn btn-primary btn-xs" href="adminDbill.html" :href="'/admin/adminDbill/'+item.billnumber">详情</a>></td>
                                     </tr>
 
                                     </tbody>

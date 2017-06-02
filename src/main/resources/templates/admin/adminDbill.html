@@ -28,7 +28,7 @@
                 <h2></h2>
                 <ol class="breadcrumb">
                     <li><a href="../index.html">首页</a></li>
-                    <li><a>账单查询</a></li>
+                    <li><a th:href="/admin/adminMS">账单查询</a></li>
                     <li class="active"><strong>账单详情</strong></li>
                 </ol>
             </div>
@@ -100,7 +100,12 @@
         el:"#wrapper",
         //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
         data:{
+            conditions:{
+                billId:[[${billId}]]
+            },
+            tableData:[],
             formData:{},
+            formSource:{},
             formName:"",
             isCreate:true
         },

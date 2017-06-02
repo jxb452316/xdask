@@ -71,6 +71,7 @@ public class CustomerRestController {
         customer.setMoney(temp);
         customerService.saveCustomer(customer);
         response.setSuccess(true);
+        response.setMessage("当前余额为"+customer.getMoney()+"元");
         return response;
     }
 

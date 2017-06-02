@@ -19,3 +19,7 @@ values
   ('abc-7',  3),
   ('abc-8',  3),
   ('abc-9',  3);
+
+insert into customer (cusname, cusidcard, cuscellphone ,money)
+values
+  ('jone',330483197811120978, 13211111111,1.2);

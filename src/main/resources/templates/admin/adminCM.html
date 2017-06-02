@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="/common/header :: main">
     这部分是html头
@@ -141,7 +141,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <button type="button" class="btn btn-sm btn-primary pull-right m-t-n-xs"><strong>确认</strong></button>
+                                <button v-on:click="submitData" type="button" class="btn btn-sm btn-primary pull-right m-t-n-xs"><strong>确认</strong></button>
                                 <button data-dismiss="modal" type="button" class="btn btn-sm btn-default pull-right m-t-n-xs tt-modal-cancel"><strong>取消</strong></button>
                             </div>
                         </div>

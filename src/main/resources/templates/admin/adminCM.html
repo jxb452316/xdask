@@ -169,6 +169,15 @@
         el:"#wrapper",
         //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
         data:{
+            //这个是对应搜索条件
+            conditions:{
+                cusname:null,
+                cusidcard:null,
+                cuacellphone:null,
+                money:null
+            },
+            //这个是对应表格
+            tableData:[],
             formData:{},
             formName:"",
             isCreate:true

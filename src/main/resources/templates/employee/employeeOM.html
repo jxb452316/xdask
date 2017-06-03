@@ -80,7 +80,7 @@
         <div class="col-lg-12">
             <div class="top">
                 <h4>点单功能</h4>
-                <input type="button" class="btn btn-sm btn-success" value="提交"/>
+                <input onclick="submitData()" type="button" class="btn btn-sm btn-success" value="提交"/>
             </div>
 
             <p class="select form-group">
@@ -129,6 +129,7 @@
         }
         var html = '';
         html += '<li>'
+            +'<form class="form-data">'
             +'<div class="form-group">'
             +'<input class="form-control food" type="hidden" value="'+food+'"/>'
             +'<label for="price">已选菜名:</label>'
@@ -139,12 +140,36 @@
             +' <input class="form-control num" type="number" value="'+num+'"/>'
             +'<span class="remove-item" onclick="removeItem(this)"><i class="glyphicon glyphicon-remove"></i></span>'
             +'</div>'
+            +'</form>'
             +'</li>';
 
         $('#foods-box').append(html);
     }
     function removeItem(ele){
         $(ele).parents('li').remove();
+    }
+
+    var submitData = function (){
+        var sendData = {
+            cusname:"",
+            date:"2017-05-12",
+            dbills:[]
+        }
+        $(".form-data").each(function (){
+            sendData.dbills.push($(this).serialize());
+        })
+        
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    contentType: "application/json",
+                    url:"/api/bill/save",
+                    data: JSON.stringify(sendData),
+                    success:function (data) {
+                        if(data.id) ToastrUtils.show("成功","操作成功",1);
+                        else ToastrUtils.show("成功","操作失敗",9);
+                    }
+                });
     }
 </script>
 </body>

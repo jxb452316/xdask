@@ -44,6 +44,12 @@ h5 {
   margin-top: 5px;
   font-weight: 600;
 }
+.fr{
+  float: right;
+}
+.fl{
+  float: left;
+}
 .nav > li > a {
   color: #a7b1c2;
   font-weight: 600;
@@ -3371,7 +3377,7 @@ body.tour-open .animated {
   border-bottom: 1px solid #e7eaec;
 }
 body {
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "微软雅黑", "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #2f4050;
   font-size: 13px;
   color: #676a6c;

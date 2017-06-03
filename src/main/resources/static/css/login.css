@@ -1,8 +1,11 @@
 html,body{
 	overflow: hidden;
+    width: 100%;
+    height:100%;
 }
 .blur-login {
-	background: #394557 url(../img/meteorshower2.jpg) repeat
+	background: #394557 url(../img/login_bg.jpg) no-repeat;
+    background-size: 100%;
 }
 .login-layout .main-container:before {
     display: none;

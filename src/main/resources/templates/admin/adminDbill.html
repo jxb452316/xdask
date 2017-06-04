@@ -9,7 +9,7 @@
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu" th:include="/common/aside-menu :: admin" th:with="active='a1|b2'">
+            <ul class="nav metismenu" id="side-menu" th:include="/common/aside-menu :: admin" th:with="active='bill'">
                 这部分内容有 /common/side-menu 中 th:fragment="admin" 部分 替换
             </ul>
 
@@ -28,7 +28,7 @@
                 <h2></h2>
                 <ol class="breadcrumb">
                     <li><a href="../index.html">首页</a></li>
-                    <li><a th:href="/admin/adminMS">账单查询</a></li>
+                    <li><a th:href="@{/admin/adminMS}">账单查询</a></li>
                     <li class="active"><strong>账单详情</strong></li>
                 </ol>
             </div>
@@ -59,7 +59,7 @@
                                 <th data-toggle="true">账单编号</th>
                                 <th>菜名</th>
                                 <th>单价</th>
-                                <th data-hide="all">数量</th>
+                                <th>数量</th>
 
                             </tr>
                             </thead>
@@ -103,34 +103,24 @@
             conditions:{
                 billid:[[${billId}]]
             },
-            tableData:[],
-            formData:{},
-            formSource:{},
-            formName:"",
-            isCreate:true
+            tableData:[]
         },
         //计算属性
         computed:{},
         //生命周期函数-创建时
         created:function () {
-            this.initFormData();
+            this.getData();
         },
         //生命周期函数-挂载完成时即数据初始化完成
         mounted:function () {},
         //方法，html中调用v-on:click
         methods:{
-            initFormData:function () {
-                this.formData = {
-                    name:null,
-                    price:null
-                }
-            },
             getData:function () {
                 var self = this;
                 $.ajax({
                     type:"POST",
                     dataType:"json",
-                    url:baseUrl + "/api/customer/search",
+                    url:baseUrl + "/api/bill/details",
                     data:self.conditions,
                     success:function (data) {
                         self.tableData = data;
@@ -138,31 +128,6 @@
                         Vue.nextTick(function () {
                             $('.footable').footable();
                         });
-                    }
-                });
-            },
-            showSmModal:function () {
-                this.initFormData();
-                this.formName = "添加员工";
-                this.isCreate = true;
-                $("#sm-modal").modal("show");
-            },
-            showUpdateModel:function (obj) {
-                this.formData = obj;
-                this.formName = "修改信息";
-                this.isCreate = false;
-                $("#sm-modal").modal("show");
-            },
-            submitData:function () {
-                var self = this;
-                var url = baseUrl + self.isCreate?"/add":"/update";
-                $.ajax({
-                    type:"POST",//get or post
-                    dataType:"json",//json or others ,suggest json
-                    url:url,
-                    data:self.formData,
-                    success:function (data) {
-                        alert(data);
                     }
                 });
             }

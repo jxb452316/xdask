@@ -87,7 +87,7 @@
                                         <td>{{item.cusname}}</td>
                                         <td>{{item.date}}</td>
                                         <td>{{item.pmoney}}</td>
-                                        <td><a class="btn btn-primary btn-xs" href="adminDbill.html" :href="'/admin/adminDbill/'+item.id">详情</a>></td>
+                                        <td><a class="btn btn-primary btn-xs" href="adminDbill.html" :href="'/admin/adminDbill/'+item.id">详情</a></td>
                                     </tr>
                                     <tr>
                                         <td colspan="5">
@@ -123,31 +123,18 @@
                     cusname:null,
                     data:null
                 },
-                tableData:{},
-                formData:{},
-                formSource:{},
-                formName:"",
-                isCreate:true
+                tableData:{}
             },
             //计算属性
             computed:{},
             //生命周期函数-创建时
             created:function () {
-                this.initFormData();
                 this.getData();
             },
             //生命周期函数-挂载完成时即数据初始化完成
             mounted:function () {},
             //方法，html中调用v-on:click
             methods:{
-                initFormData:function () {
-                    this.formData = {
-                        billnumber:null,
-                        cusname:null,
-                        data:null,
-
-                    }
-                },
                 getData:function () {
                     var self = this;
                     $.ajax({
@@ -162,60 +149,6 @@
                                 $('.footable').footable();
                             });
                         }
-                    });
-                },
-                showSmModal:function () {
-                    this.initFormData();
-                    this.formName = "添加菜单";
-                    this.isCreate = true;
-                    $("#sm-modal").modal("show");
-                },
-                showUpdateModel:function (obj) {
-                    this.formSource = obj;
-                    this.formData = $.extend(true,{},obj);
-                    this.formName = "修改菜单";
-                    this.isCreate = false;
-                    $("#sm-modal").modal("show");
-                },
-                submitData:function () {
-                    var self = this;
-                    var url = baseUrl + (self.isCreate?"/api/menu/save":"/api/menu/update");
-                    $.ajax({
-                        type:"POST",
-                        dataType:"json",
-                        contentType: "application/json",
-                        url:url,
-                        data: JSON.stringify(self.formData),
-                        success:function (data) {
-                            self.updateTableData(data);
-                            $("#sm-modal").modal("hide");
-                            ToastrUtils.show("成功","操作成功",1);
-                        }
-                    });
-                },
-                updateTableData:function (data) {
-                    var self = this;
-                    if (self.isCreate) self.tableData.push(data);
-                    else $.extend(true,self.formSource,data);
-                },
-                deleteData:function (item,index) {
-                    var self = this;
-                    SweetAlertUtils.show().sure(function () {
-                        $.ajax({
-                            type:"POST",
-                            dataType:"json",
-                            contentType: "application/json",
-                            url:baseUrl + "/api/menu/delete/" + item.id,
-                            success:function (data) {
-                                if (data.success) {
-                                    self.tableData.splice(index, 1);
-                                    ToastrUtils.show("成功","操作成功",1);
-                                }else {
-                                    alert(data.message);
-                                    ToastrUtils.show("失败","操作失败",9);
-                                }
-                            }
-                        });
                     });
                 }
             }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="/common/header :: main">
     这部分是html头
@@ -9,30 +9,27 @@
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu" th:include="/common/eside-menu :: employee">
+            <ul class="nav metismenu" id="side-menu" th:include="/common/eside-menu :: employee" th:with="active='bill'">
                 这部分内容有 /common/side-menu 中 th:fragment="admin" 部分 替换
             </ul>
 
         </div>
     </nav>
-
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2></h2>
+            <ol class="breadcrumb">
+                <li><a href="../index.html">首页</a></li>
+                <li class="active"><strong>营业额查询</strong></li>
+            </ol>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
 
     <div id="page-wrapper" class="gray-bg">
         <!-- 导航条 -->
         <div class="row border-bottom" th:include="/common/top-menu :: main">
             这部分内容有 /common/top-menu 中 th:fragment="main" 部分 替换
-        </div>
-
-        <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
-                <h2></h2>
-                <ol class="breadcrumb">
-                    <li><a href="../index.html">首页</a></li>
-                    <li><a>账单查询</a></li>
-                    <li class="active"><strong>添加xx</strong></li>
-                </ol>
-            </div>
-            <div class="col-lg-2"></div>
         </div>
 
         <!-- 主要内容部分 -->
@@ -63,7 +60,7 @@
 
                                     <div class="btn-toolbar pull-right" role="toolbar">
                                         <div class="btn-group">
-                                            <button class="btn btn-primary" type="button">搜索</button>
+                                            <button v-on:click="getData()" class="btn btn-primary" type="button">搜索</button>
                                         </div>
                                     </div>
                                 </form>
@@ -74,7 +71,7 @@
                         </div>
                         <div class="ibox-content">
 
-                            <table class="table">
+                            <table class="table footable" data-page-size="10">
                                 <thead>
                                 <tr>
                                     <th>账单编号</th>
@@ -84,27 +81,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>173101</td>
-                                    <td>客户一</td>
-                                    <td>2017-5-01</td>
-                                    <td>89.1</td>
-                                    <td><a class="btn btn-primary btn-xs" href="employeeMS.html" th:href="@{/employee/employeeDbill}">详情</a>></td>
+
+                                <tr v-for="(item,index) in tableData">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.cusname}}</td>
+                                    <td>{{item.date}}</td>
+                                    <td>{{item.pmoney}}</td>
+                                    <td><a class="btn btn-primary btn-xs" href="adminDbill.html" :href="'/employee/employeeDbill/'+item.id">详情</a></td>
                                 </tr>
                                 <tr>
-                                    <td>173101</td>
-                                    <td>客户一</td>
-                                    <td>2017-5-01</td>
-                                    <td>50</td>
-                                    <td><a class="btn btn-primary btn-xs" href="employeeMS.html" th:href="@{/employee/employeeDbill}">详情</a>></td>
+                                    <td colspan="5">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>173101</td>
-                                    <td>客户三</td>
-                                    <td>2017-5-02</td>
-                                    <td>100</td>
-                                    <td><a class="btn btn-primary btn-xs" href="employeeMS.html" th:href="@{/employee/employeeDbill}">详情</a>></td>
-                                </tr>
+
                                 </tbody>
                             </table>
 
@@ -121,6 +111,49 @@
 <div th:include="/common/footer :: js">
     这部分是引入js代码
 </div>
-
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var App = new Vue({
+        //作用域，vue的所有数据与方法只在作用域内有效
+        el:"#wrapper",
+        //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
+        data:{
+            conditions:{
+                billnumber:null,
+                cusname:null,
+                data:null
+            },
+            tableData:{}
+        },
+        //计算属性
+        computed:{},
+        //生命周期函数-创建时
+        created:function () {
+            this.getData();
+        },
+        //生命周期函数-挂载完成时即数据初始化完成
+        mounted:function () {},
+        //方法，html中调用v-on:click
+        methods:{
+            getData:function () {
+                var self = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    url:baseUrl + "/api/bill/search",
+                    data:self.conditions,
+                    success:function (data) {
+                        self.tableData = data;
+                        if (data.length === 0) return;
+                        Vue.nextTick(function () {
+                            $('.footable').footable();
+                        });
+                    }
+                });
+            }
+        }
+    })
+    /*]]>*/
+</script>
 </body>
 </html>

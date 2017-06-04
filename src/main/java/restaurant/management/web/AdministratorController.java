@@ -5,6 +5,8 @@ package restaurant.management.web;
  */
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -46,8 +48,9 @@ public class AdministratorController {
         return "admin/adminSY";
     }
 
-    @RequestMapping(value = "/adminDbill", method = RequestMethod.GET)
-    public String adminDbill() {
+    @RequestMapping(value = "/adminDbill/{billId}", method = RequestMethod.GET)
+    public String adminDbill(@PathVariable Long billId, Model model) {
+        model.addAttribute("billId",billId);
         return "admin/adminDbill";
     }
 

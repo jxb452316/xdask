@@ -19,7 +19,7 @@ public class MenuController {
 
 
     @RequestMapping( value = "search" , method = { RequestMethod.POST, RequestMethod.GET })
-    public List<Menu> search(@RequestParam String dishname){
+    public List<Menu> search(@RequestParam(required = false) String dishname){
         return menuService.filter(dishname);
     }
 

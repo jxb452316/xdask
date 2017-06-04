@@ -86,10 +86,11 @@
             <p class="select form-group">
                 <label for="foods">选择菜品:</label>
                 <select class="form-control" name="foods" id="foods" onchange="select();">
-                    <option data-price="12" value="0" selected="selected">--请选择--</option>
-                    <option data-price="121" value="1">12312312</option>
+                    <option data-price="0" value="0" selected="selected">--请选择--</option>
+                    <option v-for="item in dishs" :data-price="item.dishmoney" :value="item.id">{{item.dishname}}</option>
+                    <!--<option data-price="121" value="1">12312312</option>
                     <option data-price="122" value="2">1231232</option>
-                    <option data-price="123" value="3">1231232</option>
+                    <option data-price="123" value="3">1231232</option>-->
                 </select>
                 <label for="price">单价:</label>
                 <input class="form-control" id="price" type="text" value="0" disabled="disabled"/>
@@ -131,7 +132,7 @@
         html += '<li>'
             +'<form class="form-data">'
             +'<div class="form-group">'
-            +'<input name="dishno" class="form-control food" type="hidden" value="'+food+'"/>'
+            +'<input name="dishid" class="form-control food" type="hidden" value="'+food+'"/>'
             +'<label for="price">已选菜名:</label>'
             +' <input name="dishname" class="form-control" type="text" value="'+foodText+'"  readonly="readonly"/>'
             +' <label for="price">单价:</label>'
@@ -150,9 +151,10 @@
     }
 
     var submitData = function (){
+        var today = new Date();
         var sendData = {
             cusname:"need fix",
-            date:new Date().getTime(),
+            date:today.getFullYear()+""+(today.getMonth()+1)+""+today.getDate(),
             dbills:[]
         };
         $(".form-data").each(function (){
@@ -180,6 +182,31 @@
             }
         });
     }
+
+    var App = new Vue({
+        el:"#wrapper",
+        data:{
+            dishs:[]
+        },
+        created:function () {
+            this.getDish();
+        },
+        methods:{
+            getDish:function () {
+                var self = this;
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "/api/menu/search",
+                    success: function (data) {
+                        self.dishs = data;
+                    }
+                });
+            }
+        }
+    })
+
 </script>
 </body>
 </html>

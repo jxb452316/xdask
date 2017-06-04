@@ -156,7 +156,7 @@
             dbills:[]
         }
         $(".form-data").each(function (){
-            sendData.dbills.push($(this).serialize());
+            sendData.dbills.push($(this).serializeArray());
         })
         debugger;
         if(sendData.dbills.length === 0){

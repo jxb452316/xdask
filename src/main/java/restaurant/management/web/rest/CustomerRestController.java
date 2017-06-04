@@ -3,7 +3,9 @@ package restaurant.management.web.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import restaurant.management.model.Customer;
+import restaurant.management.model.UserLogin;
 import restaurant.management.service.CustomerService;
+import restaurant.management.service.UserLoginService;
 import restaurant.management.utils.CommonUtils;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class CustomerRestController {
 
     @Autowired
     private CustomerService customerService;
-
+    public UserLoginService userLoginService;
     @RequestMapping(value = "search", method = { RequestMethod.POST, RequestMethod.GET })
     public List<Customer> search(@RequestParam(name = "cusname", required = false, defaultValue = "") String cusname,
                                  @RequestParam(name = "cusidcard", required = false, defaultValue = "") String cusidcard,
@@ -39,6 +41,9 @@ public class CustomerRestController {
     @RequestMapping(value = "save", method = { RequestMethod.POST })
     public Customer save(@RequestBody Customer customer) {
         customerService.saveCustomer(customer);
+        userLoginService.saveLogin(
+                new UserLogin(customer.getCusname(),"123456",UserLogin.USER_TYPE_EMPLOYEE));
+
         return customer;
     }
 

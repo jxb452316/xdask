@@ -3,7 +3,9 @@ package restaurant.management.web.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import restaurant.management.model.Employee;
+import restaurant.management.model.UserLogin;
 import restaurant.management.service.EmployeeService;
+import restaurant.management.service.UserLoginService;
 import restaurant.management.utils.CommonUtils;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class EmployeeRestController {
 
     @Autowired
     private EmployeeService employeeService;
-
+    public UserLoginService userLoginService;
     @RequestMapping(value = "search", method = { RequestMethod.POST, RequestMethod.GET })
     public List<Employee> search(@RequestParam(name = "emname", required = false, defaultValue = "") String emname,
                                  @RequestParam(name = "emidcard", required = false, defaultValue = "") String emidcard,
@@ -42,6 +44,9 @@ public class EmployeeRestController {
     @RequestMapping(value = "save", method = { RequestMethod.POST })
     public Employee save(@RequestBody Employee employee) {
         employeeService.saveEmployee(employee);
+        userLoginService.saveLogin(
+                new UserLogin(employee.getEmname(),"123456",UserLogin.USER_TYPE_EMPLOYEE));
+
         return employee;
     }
 

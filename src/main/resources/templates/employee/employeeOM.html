@@ -131,11 +131,11 @@
         html += '<li>'
             +'<form class="form-data">'
             +'<div class="form-group">'
-            +'<input class="form-control food" type="hidden" value="'+food+'"/>'
+            +'<input name="dishno" class="form-control food" type="hidden" value="'+food+'"/>'
             +'<label for="price">已选菜名:</label>'
-            +' <input name="dishname" class="form-control" type="text" value="'+foodText+'"  disabled="disabled"/>'
+            +' <input name="dishname" class="form-control" type="text" value="'+foodText+'"  readonly="readonly"/>'
             +' <label for="price">单价:</label>'
-            +' <input name="dishmoney" class="form-control price" type="text" value="'+price+'" disabled="disabled"/>'
+            +' <input name="dishmoney" class="form-control price" type="text" value="'+price+'"  readonly="readonly"/>'
             +' <label for="num">已选数量:</label> '
             +' <input name="number" class="form-control num" type="number" value="'+num+'"/>'
             +'<span class="remove-item" onclick="removeItem(this)"><i class="glyphicon glyphicon-remove"></i></span>'
@@ -152,28 +152,33 @@
     var submitData = function (){
         var sendData = {
             cusname:"need fix",
-            date:"2017-05-12 00:00:00",
+            date:new Date().getTime(),
             dbills:[]
-        }
+        };
         $(".form-data").each(function (){
-            sendData.dbills.push($(this).serialize());
-        })
+            var array = $(this).serializeArray();
+            var temp = {};
+            for (var i in array){
+                temp[array[i].name] = array[i].value;
+            }
+            sendData.dbills.push(temp);
+        });
         debugger;
         if(sendData.dbills.length === 0){
             ToastrUtils.show("失败","請選擇菜餚",9);
             return;
         }
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json",
-                url: "/api/bill/save",
-                data: JSON.stringify(sendData),
-                success: function (data) {
-                    if (data.id) ToastrUtils.show("成功", "操作成功", 1);
-                    else ToastrUtils.show("成功", "操作失敗", 9);
-                }
-            });
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/api/bill/save",
+            data: JSON.stringify(sendData),
+            success: function (data) {
+                if (data.id) ToastrUtils.show("成功", "操作成功", 1);
+                else ToastrUtils.show("成功", "操作失敗", 9);
+            }
+        });
     }
 </script>
 </body>

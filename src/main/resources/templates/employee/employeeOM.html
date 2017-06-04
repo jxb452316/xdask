@@ -177,8 +177,11 @@
             url: "/api/bill/save",
             data: JSON.stringify(sendData),
             success: function (data) {
-                if (data.id) ToastrUtils.show("成功", "操作成功", 1);
-                else ToastrUtils.show("成功", "操作失敗", 9);
+                if (data.id) {
+                    ToastrUtils.show("成功", "操作成功", 1);
+                    $('#foods-box').html("");
+                }
+                else ToastrUtils.show("失敗", "操作失敗", 9);
             }
         });
     }

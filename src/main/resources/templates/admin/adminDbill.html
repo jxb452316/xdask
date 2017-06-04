@@ -28,7 +28,7 @@
                 <h2></h2>
                 <ol class="breadcrumb">
                     <li><a href="../index.html">首页</a></li>
-                    <li><a th:href="/admin/adminMS">账单查询</a></li>
+                    <li><a th:href="@{/admin/adminMS}">账单查询</a></li>
                     <li class="active"><strong>账单详情</strong></li>
                 </ol>
             </div>
@@ -59,7 +59,7 @@
                                 <th data-toggle="true">账单编号</th>
                                 <th>菜名</th>
                                 <th>单价</th>
-                                <th data-hide="all">数量</th>
+                                <th>数量</th>
 
                             </tr>
                             </thead>
@@ -114,6 +114,7 @@
         //生命周期函数-创建时
         created:function () {
             this.initFormData();
+            this.getData();
         },
         //生命周期函数-挂载完成时即数据初始化完成
         mounted:function () {},
@@ -130,7 +131,7 @@
                 $.ajax({
                     type:"POST",
                     dataType:"json",
-                    url:baseUrl + "/api/customer/search",
+                    url:baseUrl + "/api/bill/details",
                     data:self.conditions,
                     success:function (data) {
                         self.tableData = data;

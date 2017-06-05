@@ -72,26 +72,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>173101</td>
-                                    <td>客户一</td>
-                                    <td>2017-5-01</td>
-                                    <td>89.1</td>
-                                    <td><a class="btn btn-primary btn-xs" href="customerMS.html" th:href="@{/customer/customerDbill}">详情</a>></td>
-                                </tr>
-                                <tr>
-                                    <td>173101</td>
-                                    <td>客户一</td>
-                                    <td>2017-5-01</td>
-                                    <td>50</td>
-                                    <td><a class="btn btn-primary btn-xs" href="customerMS.html" th:href="@{/customer/customerDbill}">详情</a>></td>
-                                </tr>
-                                <tr>
-                                    <td>173101</td>
-                                    <td>客户一</td>
-                                    <td>2017-5-02</td>
-                                    <td>120</td>
-                                    <td><a class="btn btn-primary btn-xs" href="customerMS.html" th:href="@{/customer/customerDbill}">详情</a>></td>
+                                <tr v-for="(item,index) in tableData">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.cusname}}</td>
+                                    <td>{{item.date}}</td>
+                                    <td>{{item.pmoney}}</td>
+                                    <td><a class="btn btn-primary btn-xs" href="customerDbill.html" :href="'/customer/customerDbill/'+item.id">详情</a></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -109,6 +95,49 @@
 <div th:include="/common/footer :: js">
     这部分是引入js代码
 </div>
-
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var App = new Vue({
+        //作用域，vue的所有数据与方法只在作用域内有效
+        el:"#wrapper",
+        //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
+        data:{
+            conditions:{
+                billnumber:null,
+                cusname:null,
+                data:null
+            },
+            tableData:{}
+        },
+        //计算属性
+        computed:{},
+        //生命周期函数-创建时
+        created:function () {
+            this.getData();
+        },
+        //生命周期函数-挂载完成时即数据初始化完成
+        mounted:function () {},
+        //方法，html中调用v-on:click
+        methods:{
+            getData:function () {
+                var self = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    url:baseUrl + "/api/bill/search",
+                    data:self.conditions,
+                    success:function (data) {
+                        self.tableData = data;
+                        if (data.length === 0) return;
+                        Vue.nextTick(function () {
+                            $('.footable').footable();
+                        });
+                    }
+                });
+            }
+        }
+    })
+    /*]]>*/
+</script>
 </body>
 </html>

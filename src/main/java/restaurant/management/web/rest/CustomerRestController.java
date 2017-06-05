@@ -23,7 +23,7 @@ public class CustomerRestController {
 
     @Autowired
     private CustomerService customerService;
-    public UserLoginService userLoginService;
+    private UserLoginService userLoginService;
     @RequestMapping(value = "search", method = { RequestMethod.POST, RequestMethod.GET })
     public List<Customer> search(@RequestParam(name = "cusname", required = false, defaultValue = "") String cusname,
                                  @RequestParam(name = "cusidcard", required = false, defaultValue = "") String cusidcard,
@@ -42,7 +42,7 @@ public class CustomerRestController {
     public Customer save(@RequestBody Customer customer) {
         customerService.saveCustomer(customer);
         userLoginService.saveLogin(
-                new UserLogin(customer.getCusname(),"123456",UserLogin.USER_TYPE_EMPLOYEE));
+                new UserLogin(customer.getCusname(),"",UserLogin.USER_TYPE_CUSTOMER));
 
         return customer;
     }

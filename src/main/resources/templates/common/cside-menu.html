@@ -3,10 +3,10 @@
     <!-- 菜单标题 -->
     <li class="nav-header">
         <div class="dropdown profile-element">
-            <!--<span><img alt="image" class="img-circle" src="img/profile_small.jpg"  th:src="@{/img/profile_small.jpg}" /></span>-->
+            <span class="user-avatar"><img alt="image" class="img-circle" src="/img/customer-pic.png" /></span>
             <a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="clear">
-                <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong></span>
-                <span class="text-muted text-xs block">顾客 <b class="caret"></b></span> </span> </a>
+                <span class="block m-t-xs"><i class="fa fa-user" style="margin-left: 5px"></i><span class="font-bold" style="margin-left: 10px">欢迎您，客户</span><b style="margin-top: 5px" class="caret fr"></b></span></span>
+            </a>
             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                 <li><a href="login.html" th:href="@{/login}">注销</a></li>
             </ul>

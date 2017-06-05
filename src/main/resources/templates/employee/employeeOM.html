@@ -82,8 +82,8 @@
             <div class="top">
                 <h4>点单功能</h4>
                 <label for="foods">选择用户:</label>
-                <select class="form-control" name="cusname" id="cusname" onchange="select();">
-                    <option data-price="0" value="0" selected="selected">--请选择--</option>
+                <select id="cusname-select" class="form-control" name="cusname" id="cusname" onchange="select();">
+                    <option value="" selected="selected">--请选择--</option>
                     <option v-for="item in cusnames" :value="item.id">{{item.cusname}}</option>
 
                 </select>
@@ -160,7 +160,7 @@
     var submitData = function (){
         var today = new Date();
         var sendData = {
-            cusname:"need fix",
+            cusname:$("#cusname-select").val(),
             date:today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(),
             dbills:[]
         };

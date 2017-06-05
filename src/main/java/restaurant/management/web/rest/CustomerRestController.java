@@ -23,7 +23,9 @@ public class CustomerRestController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
     private UserLoginService userLoginService;
+
     @RequestMapping(value = "search", method = { RequestMethod.POST, RequestMethod.GET })
     public List<Customer> search(@RequestParam(name = "cusname", required = false, defaultValue = "") String cusname,
                                  @RequestParam(name = "cusidcard", required = false, defaultValue = "") String cusidcard,

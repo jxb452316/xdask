@@ -23,6 +23,7 @@ public class EmployeeRestController {
 
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
    private UserLoginService userLoginService;
     @RequestMapping(value = "search", method = { RequestMethod.POST, RequestMethod.GET })
     public List<Employee> search(@RequestParam(name = "emname", required = false, defaultValue = "") String emname,

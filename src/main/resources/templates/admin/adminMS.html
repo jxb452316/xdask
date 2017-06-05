@@ -43,17 +43,14 @@
                                     <form role="form" class="form-inline validation">
 
 
-                                        <div class="form-group tt-from-input">
-                                            <label>账单编号</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
+
                                         <div class="form-group tt-from-input">
                                             <label>客户姓名</label>
-                                            <input type="text" class="form-control" />
+                                            <input  v-model="conditions.cusname" type="text" class="form-control" />
                                         </div>
                                         <div class="form-group tt-from-input">
                                             <label>下单时间</label>
-                                            <input type="text" class="form-control" />
+                                            <input v-model="conditions.date" type="text" class="form-control" />
                                         </div>
 
 
@@ -119,7 +116,7 @@
             //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
             data:{
                 conditions:{
-                    billnumber:null,
+                    id:null,
                     cusname:null,
                     data:null
                 },

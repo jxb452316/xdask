@@ -77,17 +77,22 @@
         </div>
 
         <!-- 主要内容部分 -->
+
         <div class="col-lg-12">
             <div class="top">
                 <h4>点单功能</h4>
-                <label for="foods">选择菜品:</label>
+                <label for="foods">选择用户:</label>
+                <select class="form-control" name="cusname" id="cusname" onchange="select();">
+                    <option data-price="0" value="0" selected="selected">--请选择--</option>
+                    <option v-for="item in cusnames" :value="item.id">{{item.cusname}}</option>
 
+                </select>
                 <input onclick="submitData()" type="button" class="btn btn-sm btn-success" value="提交"/>
             </div>
 
             <p class="select form-group">
                 <label for="foods">选择菜品:</label>
-                <select class="form-control" name="foods" id="foods" onchange="select();">
+                <select class="form-control" name="cusname" id="foods" onchange="select();">
                     <option data-price="0" value="0" selected="selected">--请选择--</option>
                     <option v-for="item in dishs" :data-price="item.dishmoney" :value="item.id">{{item.dishname}}</option>
                     <!--<option data-price="121" value="1">12312312</option>
@@ -191,13 +196,15 @@
     var App = new Vue({
         el:"#wrapper",
         data:{
-            dishs:[]
+            dishs:[],
+            cusnames:[]
         },
         created:function () {
             this.getDish();
+            this.getCusname();
         },
-        methods:{
-            getDish:function () {
+        methods: {
+            getDish: function () {
                 var self = this;
                 $.ajax({
                     type: "POST",
@@ -208,9 +215,24 @@
                         self.dishs = data;
                     }
                 });
+            },
+            getCusname:function () {
+                var self = this;
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: "/api/customer/search",
+                    success: function (data) {
+                        self.cusnames = data;
+                    }
+                });
             }
         }
-    })
+
+
+
+    }
 
 </script>
 </body>

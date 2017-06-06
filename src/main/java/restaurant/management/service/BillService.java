@@ -1,6 +1,7 @@
 package restaurant.management.service;
 
 import restaurant.management.model.Bill;
+import restaurant.management.model.TotalBill;
 
 import java.util.List;
 
@@ -13,4 +14,10 @@ public interface BillService {
     Bill findOne(Long id);
     void deleteBillById(Long id);
     List<Bill> filter(Long billid, String cusname, String date, Double pmoney);
+
+    List<TotalBill> groupByYear();
+
+    List<TotalBill> groupByMonth();
+
+    List<TotalBill> groupByDay();
 }

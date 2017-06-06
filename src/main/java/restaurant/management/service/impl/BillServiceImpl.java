@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import restaurant.management.model.Bill;
+import restaurant.management.model.TotalBill;
 import restaurant.management.repository.BillRepository;
 import restaurant.management.service.BillService;
 
@@ -44,4 +45,6 @@ public class BillServiceImpl implements BillService {
     @Transactional(readOnly = true)
     public List<Bill> filter(Long id, String cusname, String date, Double pmoney) {
         return repository.filter(id, cusname, date, pmoney);}
+
+  
 }

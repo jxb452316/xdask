@@ -3,10 +3,9 @@ package restaurant.management.web.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import restaurant.management.model.Bill;
-import restaurant.management.model.Customer;
 import restaurant.management.model.Dbill;
+import restaurant.management.model.TotalBill;
 import restaurant.management.service.BillService;
-import restaurant.management.service.CustomerService;
 import restaurant.management.service.DbillService;
 import restaurant.management.utils.CommonUtils;
 
@@ -85,5 +84,19 @@ public class BillController {
             dbillService.saveDbill(dbill);
         }
         return bill;
+    }
+
+
+    @RequestMapping(value = "summary", method = { RequestMethod.GET, RequestMethod.POST })
+    public List<TotalBill> summary(@RequestParam(name = "type") String type) {
+        if ("YEAR".equalsIgnoreCase(type)) {
+            return billService.groupByYear();
+        } else if ("MONTH".equalsIgnoreCase(type)) {
+            return billService.groupByMonth();
+        } else if ("DAY".equalsIgnoreCase(type)) {
+            return billService.groupByDay();
+        } else {
+            throw new RuntimeException("Unexpected type of summary, only YEAR/MONTH/DAY are permitted");
+        }
     }
 }

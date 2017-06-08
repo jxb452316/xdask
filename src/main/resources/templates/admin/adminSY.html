@@ -89,7 +89,7 @@
                 amount:null,
             },
             tableData:[],
-            formData:{},
+            formData:[],
             formSource:{},
             formName:"",
             isCreate:true
@@ -117,70 +117,73 @@
                     type:"POST",
                     dataType:"json",
                     url:baseUrl + "/api/bill/summary",
-                    data:self.conditions,
+                    data:{
+                        type:'YEAR'
+                    },
                     success:function (data) {
-                        self.tableData = data;
                         if (data.length === 0) return;
+                        var tableData = [];
+                        for(var i =0;i<data.length;i++){
+                            var arr = [];
+                            arr.push(data[i].range);
+                            arr.push(data[i].amount);
+                            tableData.push(arr);
+                        }
+
+                        self.renderForm(tableData);
+
                         Vue.nextTick(function () {
                             $('.footable').footable();
                         });
                     }
                 });
             },
-
+            renderForm:function (arr) {
+                var barOptions = {
+                    series: {
+                        bars: {
+                            show: true,
+                            barWidth: 0.6,
+                            fill: true,
+                            fillColor: {
+                                colors: [{
+                                    opacity: 0.8
+                                }, {
+                                    opacity: 0.8
+                                }]
+                            }
+                        }
+                    },
+                    xaxis: {
+                        tickDecimals: 0
+                    },
+                    colors: ["#1ab394"],
+                    grid: {
+                        color: "#999999",
+                        hoverable: true,
+                        clickable: true,
+                        tickColor: "#D4D4D4",
+                        borderWidth:0
+                    },
+                    legend: {
+                        show: false
+                    },
+                    tooltip: true,
+                    tooltipOpts: {
+                        content: "x: %x, y: %y"
+                    }
+                };
+                //设置数据
+                var barData = {
+                    label: "bar",
+                    data: arr
+                };
+                $.plot($("#flot-bar-chart"), [barData], barOptions);
+            }
 
         }
     })
-    $(function() {
-        //设置样式
-        var barOptions = {
-            series: {
-                bars: {
-                    show: true,
-                    barWidth: 0.6,
-                    fill: true,
-                    fillColor: {
-                        colors: [{
-                            opacity: 0.8
-                        }, {
-                            opacity: 0.8
-                        }]
-                    }
-                }
-            },
-            xaxis: {
-                tickDecimals: 0
-            },
-            colors: ["#1ab394"],
-            grid: {
-                color: "#999999",
-                hoverable: true,
-                clickable: true,
-                tickColor: "#D4D4D4",
-                borderWidth:0
-            },
-            legend: {
-                show: false
-            },
-            tooltip: true,
-            tooltipOpts: {
-                content: "x: %x, y: %y"
-            }
-        };
-        //设置数据
-        var barData = {
-            label: "bar",
-            data: [
-                [1, 1434],
-                [2, 2825],
-                [3, 3419],
-                [4, 1534],
-                [5, 1932],
-                [6, 1044]
-            ]
-        };
-        $.plot($("#flot-bar-chart"), [barData], barOptions);
-    });
+
     /*]]>*/
 </script>
 

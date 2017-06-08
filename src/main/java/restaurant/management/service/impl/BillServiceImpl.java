@@ -7,6 +7,7 @@ import restaurant.management.model.Bill;
 import restaurant.management.model.TotalBill;
 import restaurant.management.repository.BillRepository;
 import restaurant.management.service.BillService;
+import restaurant.management.repository.TotalBillRepository;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ import java.util.List;
 public class BillServiceImpl implements BillService {
     @Autowired
     private BillRepository repository;
+    @Autowired
+    private TotalBillRepository totalBillRepository;
+
     @Override
     @Transactional
     public void saveBill(Bill bill) {
@@ -46,5 +50,22 @@ public class BillServiceImpl implements BillService {
     public List<Bill> filter(Long id, String cusname, String date, Double pmoney) {
         return repository.filter(id, cusname, date, pmoney);}
 
-  
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TotalBill> groupByYear() {
+        return totalBillRepository.groupByYear();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TotalBill> groupByMonth() {
+        return totalBillRepository.groupByMonth();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TotalBill> groupByDay() {
+        return totalBillRepository.groupByDay();
+    }
 }

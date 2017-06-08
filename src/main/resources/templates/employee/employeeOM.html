@@ -82,7 +82,7 @@
             <div class="top">
                 <h4>点单功能</h4>
                 <label for="foods">选择用户:</label>
-                <select id="cusname-select" class="form-control" name="cusname" id="cusname" onchange="select();">
+                <select id="cusname-select" class="form-control" name="cusname" onchange="select();">
                     <option value="" selected="selected">--请选择--</option>
                     <option v-for="item in cusnames" :value="item.id">{{item.cusname}}</option>
 

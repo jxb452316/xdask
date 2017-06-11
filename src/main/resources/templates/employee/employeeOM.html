@@ -15,7 +15,7 @@
         display: inline-block;
         width:120px;
     }
-    .top input{
+    .top input[type = 'button']{
         float: right;
     }
     ol {
@@ -82,11 +82,13 @@
             <div class="top">
                 <h4>点单功能</h4>
                 <label for="foods">选择用户:</label>
-                <select id="cusname-select" class="form-control" name="cusname" onchange="select();">
+                <select id="cusname-select" class="form-control" name="cusname" onchange="selectMoney();">
                     <option value="" selected="selected">--请选择--</option>
-                    <option v-for="item in cusnames" :value="item.cusname">{{item.cusname}}</option>
+                    <option v-for="item in cusnames" :value="item.cusname" :data-money="item.money">{{item.cusname}}</option>
 
                 </select>
+                <label for="price">余额:</label>
+                <input class="form-control" id="cusname-money" type="text" value="0" disabled="disabled"/>
                 <input onclick="submitData()" type="button" class="btn btn-sm btn-success" value="提交"/>
             </div>
 
@@ -117,6 +119,10 @@
     这部分是引入js代码
 </div>
 <script type="text/javascript">
+    function selectMoney() {
+        var price = $('#cusname-select').find('option:selected').attr('data-money');
+        $('#cusname-money').val(price);
+    }
     function select() {
         console.log(12)
         var price = $('#foods').find('option:selected').attr('data-price');

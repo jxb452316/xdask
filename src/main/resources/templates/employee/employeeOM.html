@@ -84,7 +84,7 @@
                 <label for="foods">选择用户:</label>
                 <select id="cusname-select" class="form-control" name="cusname" onchange="select();">
                     <option value="" selected="selected">--请选择--</option>
-                    <option v-for="item in cusnames" :value="item.id">{{item.cusname}}</option>
+                    <option v-for="item in cusnames" :value="item.cusname">{{item.cusname}}</option>
 
                 </select>
                 <input onclick="submitData()" type="button" class="btn btn-sm btn-success" value="提交"/>
@@ -189,6 +189,10 @@
                     $('#foods-box').html("");
                 }
                 else ToastrUtils.show("失敗", "操作失敗", 9);
+            },
+            error:function (obj) {
+                ToastrUtils.show("失敗", obj.responseJSON.message, 9);
+                debugger;
             }
         });
     }

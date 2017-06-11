@@ -130,6 +130,7 @@
                         if (data.length === 0) return;
                         Vue.nextTick(function () {
                             $('.footable').footable();
+                            $('.footable').trigger('footable_redraw');
                         });
                     }
                 });

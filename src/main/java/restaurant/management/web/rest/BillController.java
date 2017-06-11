@@ -3,9 +3,11 @@ package restaurant.management.web.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import restaurant.management.model.Bill;
+import restaurant.management.model.Customer;
 import restaurant.management.model.Dbill;
 import restaurant.management.model.TotalBill;
 import restaurant.management.service.BillService;
+import restaurant.management.service.CustomerService;
 import restaurant.management.service.DbillService;
 import restaurant.management.utils.CommonUtils;
 
@@ -28,6 +30,9 @@ public class BillController {
 
     @Autowired
     private DbillService dbillService;
+
+    @Autowired
+    private CustomerService customerService;
 
     @RequestMapping(value = "search", method = { RequestMethod.POST, RequestMethod.GET })
     public List<Bill> search(@RequestParam(name = "billid", required = false, defaultValue = "") String billid,
@@ -72,10 +77,20 @@ public class BillController {
     public Bill save(@RequestBody OrderRequest order) {
         if (order == null || order.getDbills() == null)
             throw new RuntimeException("点单不可为空");
+
+        //价格计算
         double totalPrice = 0;
         for (Dbill dbill: order.getDbills()) {
             totalPrice += dbill.getDishmoney() * dbill.getNumber();
         }
+
+        //获取用户信息
+        Customer customer = customerService.findByCusname(order.getCusname()).get(0);
+        if (customer.getMoney() <= totalPrice) throw new RuntimeException("余额不足");
+        customer.setMoney(customer.getMoney() - totalPrice);
+        customerService.updateCustomer(customer);
+
+        //账单添加
         Bill bill = new Bill(order.getCusname(), order.getDate(), totalPrice);
         billService.saveBill(bill);
         // 将生成的bill编号设置会dbill中，并存入数据库

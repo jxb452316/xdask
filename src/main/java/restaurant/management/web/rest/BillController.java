@@ -1,11 +1,11 @@
 package restaurant.management.web.rest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.servlet.ShiroHttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import restaurant.management.model.Bill;
-import restaurant.management.model.Customer;
-import restaurant.management.model.Dbill;
-import restaurant.management.model.TotalBill;
+import restaurant.management.model.*;
 import restaurant.management.service.BillService;
 import restaurant.management.service.CustomerService;
 import restaurant.management.service.DbillService;
@@ -39,7 +39,15 @@ public class BillController {
                              @RequestParam(name = "cusname", required = false, defaultValue = "") String cusname,
                              @RequestParam(name = "date", required = false, defaultValue = "") String date,
                              @RequestParam(name = "pmoney", required = false, defaultValue = "") String pmoney)
-                                 {
+    {
+
+        //获取用户信息
+        Subject currentUser = SecurityUtils.getSubject();
+        UserLogin login = (UserLogin)currentUser.getPrincipal();
+        if (login.getUsertype() == UserLogin.USER_TYPE_CUSTOMER){
+            cusname = login.getUsername();
+        }
+
         return billService.filter(
                 CommonUtils.nullIfEmpty(billid) == null ? null : Long.valueOf(billid),
                 CommonUtils.nullIfEmpty(cusname),

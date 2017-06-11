@@ -1,5 +1,7 @@
 package restaurant.management.web.rest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import restaurant.management.model.Customer;
@@ -38,6 +40,13 @@ public class CustomerRestController {
                 CommonUtils.nullIfEmpty(cuscellphone),
                 CommonUtils.nullIfEmpty(money) == null ? null : Double.valueOf(money)
         );
+    }
+
+    @RequestMapping(value = "searchMe", method = { RequestMethod.POST, RequestMethod.GET })
+    public Customer searchMe(){
+        Subject currentUser = SecurityUtils.getSubject();
+        UserLogin login = (UserLogin)currentUser.getPrincipal();
+        return customerService.filter(login.getUsername(),null,null,null).get(0);
     }
 
     @RequestMapping(value = "save", method = { RequestMethod.POST })

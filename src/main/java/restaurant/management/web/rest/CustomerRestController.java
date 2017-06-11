@@ -81,5 +81,4 @@ public class CustomerRestController {
         response.setMessage("当前余额为"+customer.getMoney()+"元");
         return response;
     }
-
 }

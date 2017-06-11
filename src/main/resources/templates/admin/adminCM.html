@@ -255,7 +255,9 @@
                 var self = this;
                 if (self.isCreate) self.tableData.push(data);
                 else $.extend(true,self.formSource,data);
-                $('.footable').trigger('footable_redraw');
+                Vue.nextTick(function () {
+                    $('.footable').trigger('footable_redraw');
+                });
             },
             deleteData:function (item,index) {
                 var self = this;
@@ -269,7 +271,9 @@
                             if (data.success) {
                                 self.tableData.splice(index, 1);
                                 ToastrUtils.show("成功","操作成功",1);
-                                $('.footable').trigger('footable_redraw');
+                                Vue.nextTick(function () {
+                                    $('.footable').trigger('footable_redraw');
+                                });
                             }else {
                                 alert(data.message);
                                 ToastrUtils.show("失败","操作失败",9);

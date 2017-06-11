@@ -9,7 +9,7 @@
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu" th:include="/common/aside-menu :: customer" th:with="active='a1|b2'">
+            <ul class="nav metismenu" id="side-menu" th:include="/common/cside-menu :: customer" th:with="active='bill'">
                 这部分内容有 /common/side-menu 中 th:fragment="admin" 部分 替换
             </ul>
 
@@ -28,7 +28,7 @@
                 <h2></h2>
                 <ol class="breadcrumb">
                     <li><a href="../index.html">首页</a></li>
-                    <li><a>账单查询</a></li>
+                    <li><a th:href="@{/customer/customerMS}">账单查询</a></li>
                     <li class="active"><strong>账单详情</strong></li>
                 </ol>
             </div>
@@ -59,21 +59,21 @@
                                 <th data-toggle="true">账单编号</th>
                                 <th>菜名</th>
                                 <th>单价</th>
-                                <th data-hide="all">数量</th>
+                                <th>数量</th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>10</td>
-                                <td>货收</td>
-                                <td>10</td>
-                                <td>1</td>
+                            <tr v-for="(item,index) in tableData">
+                                <td>{{item.billid}}</td>
+                                <td>{{item.dishname}}</td>
+                                <td>{{item.dishmoney}}</td>
+                                <td>{{item.number}}</td>
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="4">
                                     <ul class="pagination pull-right"></ul>
                                 </td>
                             </tr>
@@ -84,9 +84,62 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 
 </div>
+
+
+
+
+<div th:include="/common/footer :: js">
+    这部分是引入js代码
+</div>
+<script th:inline="javascript">
+    var App = new Vue({
+        //作用域，vue的所有数据与方法只在作用域内有效
+        el:"#wrapper",
+        //数据,v-model可以双向绑定这里的数据，:/v-bind: +标签可以单向绑定数据如 :href，{{dataname}}绑定文本内容
+        data:{
+            conditions:{
+                billid:[[${billId}]]
+            },
+            tableData:[]
+        },
+        //计算属性
+        computed:{},
+        //生命周期函数-创建时
+        created:function () {
+            this.getData();
+        },
+        //生命周期函数-挂载完成时即数据初始化完成
+        mounted:function () {},
+        //方法，html中调用v-on:click
+        methods:{
+            getData:function () {
+                var self = this;
+                $.ajax({
+                    type:"POST",
+                    dataType:"json",
+                    url:baseUrl + "/api/bill/details",
+                    data:self.conditions,
+                    success:function (data) {
+                        self.tableData = data;
+                        if (data.length === 0) return;
+                        Vue.nextTick(function () {
+                            $('.footable').footable();
+                            $('.footable').trigger('footable_redraw');
+                        });
+                    }
+                });
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>
+
 
 
 

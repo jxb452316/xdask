@@ -2,7 +2,9 @@ insert into user_login (username, password, usertype)
 values 
   ('admin', 'admin', 1),
   ('emp', 'emp', 2),
-  ('cust', 'cust', 3);
+  ('cust', 'cust', 3),
+('cus1', 'cus1', 3);
+
 
 insert into menu (dishname, dishmoney)
 values

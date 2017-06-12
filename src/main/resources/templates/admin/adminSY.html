@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 
 <head th:include="/common/header :: main">
     这部分是html头
@@ -49,9 +49,9 @@
                                 <i class="fa fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
+                                <li><a v-on:click="changeChartType('line')" href="#">折线图</a>
                                 </li>
-                                <li><a href="#">Config option 2</a>
+                                <li><a v-on:click="changeChartType('bar')" href="#">柱状图</a>
                                 </li>
                             </ul>
                             <a class="close-link">
@@ -61,7 +61,10 @@
                     </div>
                     <div class="ibox-content">
                         <div class="flot-chart">
-                            <div class="flot-chart-content" id="flot-bar-chart"></div>
+                            <!--<div class="flot-chart-content" id="flot-bar-chart"></div>-->
+                            <div>
+                                <canvas id="lineChart" height="140"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,31 +89,47 @@
         data:{
             conditions:{
                 range:null,
-                amount:null,
+                amount:null
             },
             tableData:[],
-            formData:[],
-            formSource:{},
-            formName:"",
-            isCreate:true
+            chartData:{
+                labels: ["null"],
+                datasets: [
+                    {
+                        label: "金额",
+                        backgroundColor: 'rgba(26,179,148,0.5)',
+                        borderColor: "rgba(26,179,148,0.7)",
+                        pointBackgroundColor: "rgba(26,179,148,1)",
+                        pointBorderColor: "#fff",
+                        data: [0]
+                    }/*,{
+                        label: "归还数",
+                        backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                        pointBorderColor: "#fff",
+                        data: [0]
+                    }*/
+                ]
+            },
+            chartType:"bar",
+            chart:null
         },
         //计算属性
         computed:{},
         //生命周期函数-创建时
         created:function () {
-            this.initFormData();
             this.getData();
         },
         //生命周期函数-挂载完成时即数据初始化完成
-        mounted:function () {},
+        mounted:function () {
+            var self = this;
+            var lineOptions = {
+                responsive: true
+            };
+            var ctx = document.getElementById("lineChart").getContext("2d");
+            self.chart = new Chart(ctx, {type: self.chartType, data: self.chartData, options:lineOptions});
+        },
         //方法，html中调用v-on:click
         methods:{
-            initFormData:function () {
-                this.formData = {
-                    range:null,
-                    amount:null
-                }
-            },
             getData:function () {
                 var self = this;
                 $.ajax({
@@ -121,22 +140,35 @@
                         type:'YEAR'
                     },
                     success:function (data) {
+
                         if (data.length === 0) return;
-                        var tableData = [];
+
+                        self.chartData.labels = $.map(data,function(item){return item.range});
+                        self.chartData.datasets[0].data = $.map(data,function(item){return item.amount});
+                        //self.chartData.datasets[1].data = $.map(data,function(item){return item.amount});
+                        self.chart.update();
+
+                        /*var tableData = [];
                         for(var i =0;i<data.length;i++){
                             var arr = [];
                             arr.push(data[i].range);
                             arr.push(data[i].amount);
                             tableData.push(arr);
                         }
-
-                        self.renderForm(tableData);
-
-                        Vue.nextTick(function () {
-                            $('.footable').footable();
-                        });
+                        self.renderForm(tableData);*/
                     }
                 });
+            },
+            changeChartType:function (type) {
+                var self = this;
+                self.chartType = type;
+                self.chart.destroy();
+
+                var lineOptions = {
+                    responsive: true
+                };
+                var ctx = document.getElementById("lineChart").getContext("2d");
+                self.chart = new Chart(ctx, {type: self.chartType, data: self.chartData, options:lineOptions});
             },
             renderForm:function (arr) {
                 var barOptions = {

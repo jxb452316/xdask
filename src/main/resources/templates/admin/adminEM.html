@@ -108,7 +108,10 @@
                                 <td>{{item.emidcard}}</td>
                                 <td>{{item.emcellphone}}</td>
                                 <td>{{item.emage}}</td>
-                                <td>{{item.emsex}}</td>
+                                <td>
+                                    <span v-if="item.emsex">男</span>
+                                    <span v-else="else">女</span>
+                                </td>
                                 <td>{{item.emremark}}</td>
                                 <td>{{item.emaddress}}</td>
                                 <td>

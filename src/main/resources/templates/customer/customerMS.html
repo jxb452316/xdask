@@ -92,7 +92,7 @@
                         </div>
                         <div class="ibox-content">
 
-                            <table class="table">
+                            <table class="table footable" data-page-size="10">
                                 <thead>
                                 <tr>
                                     <th>账单编号</th>
@@ -110,6 +110,13 @@
                                     <td><a class="btn btn-primary btn-xs" href="customerDbill.html" :href="'/customer/customerDbill/'+item.id">详情</a></td>
                                 </tr>
                                 </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
                             </table>
 
                         </div>
